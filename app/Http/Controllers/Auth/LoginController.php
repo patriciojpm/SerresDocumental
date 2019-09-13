@@ -44,7 +44,7 @@ class LoginController extends Controller
         if ($tipo=='Admin'){
             return 'Admin/home';
         }
-        if ($tipo=='Cliente'){
+        if ($tipo=='cliente'){
             return 'Cliente/home';
         }
        

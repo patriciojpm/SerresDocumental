@@ -13,8 +13,9 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
-                    You are logged in!
+                    <center>
+                        <iframe frameborder=0 width="1200" height="1000" src="{{ Auth::user()->direccion }}"></iframe>
+                    </center>
                 </div>
             </div>
         </div>

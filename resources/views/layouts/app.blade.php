@@ -19,7 +19,15 @@
     <!-- Styles-->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet"> 
 
-    
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+     <!-- swal desde las funciones de sweet alert 2 -->
+   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8.9.0/dist/sweetalert2.all.min.js"></script>
+    <!-- fin desde las funciones -->
+
+    <!-- para sweet alert desde el contralador -->
+   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> 
+   <script src = "http://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js" defer ></script>
 
 </head>
 <body>
@@ -36,7 +44,28 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-
+                    @guest
+                    <label>SerresVerificadora SPA.</label>
+                    @else
+                        <div class="dropdown">
+                                @can('solicitudesCliente.index')
+                                <button class="mr-2 btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Administración de Solicitudes
+                                </button>
+                                @endcan
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            @can('solicitudesClienteEnviadas.crud')
+                                    <a class="dropdown-item" href="{{ route('solicitudesCliente.create') }}">Iniciar Solicitudes</a>
+                                @endcan 
+                                @can('solicitudesClienteEnviadas.crud')
+                                    <a class="dropdown-item" href="{{ route('solicitudesClienteEnviadas.index') }}">Solicitudes Enviadas y Observadas</a>
+                                @endcan 
+                                @can('solicitudesClienteEnviadas.crud')
+                                    <a class="dropdown-item" href="{{ route('solicitudesClienteGuardadas.index') }}">Solicitudes Aprobadas y Guardadas</a>
+                                @endcan 
+                            </div>
+                        </div>
+                    @endguest
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -79,7 +108,7 @@
             @yield('content')
         </main>
     </div>
-
-   
+    @include('sweet::alert')
+    
 </body>
 </html>

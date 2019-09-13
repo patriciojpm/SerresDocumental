@@ -16,15 +16,21 @@ class CreateEmpresasTable extends Migration
         Schema::create('empresas', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
-            $table->string('rut_emp',10);
-            $table->string('nom_emp',200);
-            $table->string('dir_emp',200);
-            $table->string('com_emp',150);
-            $table->string('gir_emp',150);
-            $table->string('fon_emp',100);
-            $table->string('mai_emp',130);
-            $table->string('mutualidad',100);
-            $table->string('especialidad',150);
+            $table->string('rut',10)->unique();
+            $table->string('nombre',200);
+            $table->string('direccion',200);
+            $table->string('comuna',150);
+            $table->string('email',150);
+            $table->string('telefonos',50);
+            $table->string('giro',150)->nullable();
+            $table->string('rutRepLeg',10)->nullable();
+            $table->string('nomRepLeg',200)->nullable();
+            $table->string('tipoEmpresa',50);
+            $table->string('nomContacto',200);
+            $table->string('fonContacto',50);
+            $table->string('emailContacto',200);
+            $table->string('mutualidad',50)->nullable();
+            $table->string('especialidad',150)->nullable();
         });
     }
 

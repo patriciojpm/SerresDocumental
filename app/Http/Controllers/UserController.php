@@ -2,11 +2,32 @@
 
 namespace App\Http\Controllers;
 use App\User;
+use caffeinated\Shinobi\Models\role_user;
+use Mail;
+use App\Mail\EmergencyCallReceived;
 use Alert;
+use App\usuconformulario;
+use caffeinated\Shinobi\Models\Role;
 use Illuminate\Http\Request;
+use App\Http\Requests\form_create_users_request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+    
+    public function __construct()
+    {
+       
+        
+    }
+    
+    public $dato;
+    public $matrizUsuario=array();
+    public $f=0;
+    public $c=0;
+    public $si="SI";
+    public $no="NO";
+
     /**
      * Display a listing of the resource.
      *
@@ -14,8 +35,29 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::paginate();
-       
+        $users = User::all();
+
+    //     foreach($users as $usuario){
+    //         $buscar=usuconformulario::where('user_id',$usuario->id)->get();
+    //         foreach($buscar as $usu){
+    //             $this->dato=$usu->id;
+    //         }
+    //             if (empty($this->dato))
+    //             {
+    //                 $this->matrizUsuario[$this->f][$this->c]=$usuario->id;
+    //                 $this->matrizUsuario[$this->f][$this->c+1]=$usuario->name;
+    //                 $this->matrizUsuario[$this->f][$this->c+2]=$this->si;
+    //                 $this->f++;
+    //             }else{
+    //                 $this->matrizUsuario[$this->f][$this->c]=$usuario->id;
+    //                 $this->matrizUsuario[$this->f][$this->c+1]=$usuario->name;
+    //                 $this->matrizUsuario[$this->f][$this->c+2]=$this->no;
+    //                 $this->f++;
+    //             }
+    //     }
+
+
+    //    dd($this->matrizUsuario);
         return view('Admin.index',compact('users'));
     }
 
@@ -26,7 +68,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('Admmin.create');
+        $roles=Role::get();
+        return view('Admin.create',compact('roles'));
     }
 
     /**
@@ -35,10 +78,26 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(form_create_users_request $request)
     {
-        $user = User::create($request->all());
-        return redirect()->route('Admin.edit',$user->id);
+        // $user = User::create($request->all());
+        $save=User::create([
+            'name' => $request['name'],
+            'email' => $request['email'],
+            'password' => Hash::make($request['password']),
+            // 'rut' => $request['rut'],
+            'direccion' => $request['direccion'],
+            'Tipo' => $request['Tipo'],
+            ]);
+            
+            $clave=$request['password'];
+            
+            Mail::to($request['email'])->send(new EmergencyCallReceived($clave));
+
+        $save->roles()->sync($request->get('roles'));
+
+        Alert::success('Usuario Guardado Correctamente');
+        return back();
     }
 
     /**
@@ -47,9 +106,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(User $user)
     {
-        //
+        return view('Admin.show', compact('user'));
     }
 
     /**
@@ -58,9 +117,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        //
+        return view('Admin.edit',compact('user'));
     }
 
     /**
@@ -70,9 +129,11 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
-        //
+        $act=User::where('id',$user->id)->update(['password'=>Hash::make($request['password']),'email'=>$request->email,'Tipo'=>$request->Tipo,'direccion'=>$request->direccion]);
+        Alert::success('Datos Actualizados Correctamente');
+        return redirect()->route('users.edit', $user->id)->with('info','actualizado');
     }
 
     /**
@@ -81,17 +142,20 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $id)
+    public function destroy($id)
     {
-      
-        $id->delete();
-      
-        $id =User::where('id',$id)->first();
-
-         
-        Alert::success('Eliminado Correctamente', 'Administración de Usuarios');
-        $users = User::paginate();
        
-        return view('Admin.index',compact('users'));
+                $borrar=User::where('id',$id)->delete();
+               
+         
+        
+
+            // 
+            // return Response::json($busq);
+       
     }
+
+    // public function grabarUser(request $request){
+    //     dd($request);
+    // }
 }
