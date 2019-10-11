@@ -16,6 +16,9 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="{{ asset('js/funciones.js') }}"></script>
+
     <!-- Styles-->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet"> 
 

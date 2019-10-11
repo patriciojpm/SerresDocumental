@@ -121,7 +121,7 @@ class SolicitudesInspectorController extends Controller
 
             $this->estado="Rechazada";
             $act=solicitudeproceso::where('id',$id)->update(['estado'=>$request->estado,'observaciones'=>$request->observaciones]);
-            Alert::info('Solicitud Rechazada...');
+            Alert::info('Solicitud Observada...');
             $user = auth()->User()->id;
             $this->estado="Asignada";
             $solicitudesNuevas=solicitudeproceso::where('inspector_id',$user)->where('estado',$this->estado)->get();

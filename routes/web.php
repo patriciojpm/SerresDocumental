@@ -164,4 +164,11 @@ route::get('solicitudeClienteGuardadas/{id}/enviar','SolicitudesController@solic
 
 route::post('solicitudeCliente/storeGuardada','SolicitudesController@storeGuardada')->name('solicitudesClienteGuardada.store')->middleware('permission:solicitudesCliente.create'); // ruta para grabar
 
+
+//comprimir y Descargar
+route::get('zip/{id}','ComprimirDescargar@comprimirD')->name('comprimir.descargar');
+
+//cargas masiva por excel
+route::get('carga/usuario','cargaMasivaController@cargamasivausuarios')->name('cargaMasivaUsuario.carga');
+Route::post('/import-excel-asigna-a-area', 'cargaMasivaController@importUser');
 });

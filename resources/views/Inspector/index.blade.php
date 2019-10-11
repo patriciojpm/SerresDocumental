@@ -27,10 +27,11 @@
                             <th scope="col">Id</th>
                             <th scope="col">Rut Contratista</th>
                             <th scope="col">Contratista</th>
+                            <th scope="col">N° Contrato</th>
                             <th scope="col">Tipo de Solcitud</th>
                             <th scope="col">Periodo a Certificar</th>
                             <th scope="col">Contratados</th>
-                            <th scope="col">Desvinvulados</th>
+                            <th scope="col">Desvinculados</th>
                             <th scope="col">Otras Causas</th>
                             <th scope="col">Total Vigentes</th>
                             <th scope="col">Bitácora</th>
@@ -43,6 +44,7 @@
                                 <th scope="row">{{ $solicitud->id}}</th>
                                 <th scope="row">{{ $solicitud->estructura->empresa->rut}}</th>
                                 <th scope="row">{{ $solicitud->estructura->empresa->nombre}}</th>
+                                <th scope="row">{{ $solicitud->estructura->contrato}}</th>
                                 <th>
                                 @if($solicitud->usuconformulario->formulario==1)
                                     Certificación

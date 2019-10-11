@@ -15,53 +15,53 @@
 
                 <div class="card-body">
                     @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
+                    <div class="alert alert-success" role="alert">
+                        {{ session('status') }}
+                    </div>
                     @endif
 
                     <!-- Contenido -->
-                    <table class="table table-hover">
+                    <table class="table" id="tablaProyectos">
                         <thead>
                             <tr>
-                            <th scope="col">Id</th>
-                            <th scope="col">Rut Contratista  </th>
-                            <th scope="col">Contratista</th>
-                            <th scope="col">Tipo de Solcitud</th>
-                            <th scope="col">Periodo a Certificar</th>
-                            <th scope="col">Ingresos del Periodo</th>
-                            <th scope="col">Art. 161 del Periodo</th>
-                            <th scope="col">Desvinculados de otras causales del Periodo</th>
-                            <th scope="col">N° total de Trabajadores vigentes en Obra</th>
-                            <th scope="col">Estado</th>
-                            <th scope="col">Contrato</th>
-                            <th scope="col">Bitácora</th>
-                            <th scope="col">Acción</th>
+                                <th scope="col">Id</th>
+                                <th scope="col">Rut Contratista  </th>
+                                <th scope="col">Contratista</th>
+                                <th scope="col">Tipo de Solcitud</th>
+                                <th scope="col">Periodo a Certificar</th>
+                                <th scope="col">Ingresos del Periodo</th>
+                                <th scope="col">Art. 161 del Periodo</th>
+                                <th scope="col">Desvinculados de otras causales del Periodo</th>
+                                <th scope="col">N° total de Trabajadores vigentes en Obra</th>
+                                <th scope="col">Estado</th>
+                                <th scope="col">Contrato</th>
+                                <th scope="col">Bitácora</th>
+                                <th scope="col">Acción</th>
 
                             </tr>
                         </thead>
                         <tbody>
-                        @foreach($solicitudesEnviadas as $solicitud)
+                            @foreach($solicitudesEnviadas as $solicitud)
                             <tr>
                                 <th scope="row">{{ $solicitud->id}}</th>
                                 <th scope="row">{{ $solicitud->estructura->empresa->rut}}</th>
                                 <th scope="row">{{ $solicitud->estructura->empresa->nombre}}</th>
                                 <th>
-                                @if($solicitud->usuconformulario->formulario==1)
+                                    @if($solicitud->usuconformulario->formulario==1)
                                     Certificación
-                                @elseif($solicitud->usuconformulario->formulario==2)
+                                    @elseif($solicitud->usuconformulario->formulario==2)
                                     Certificación de Documentos
-                                @endif
-                                </th>  
-                                <th scope="row">{{ $solicitud->mes}} / {{ $solicitud->ano}}</th> 
+                                    @endif
+                                </th>
+                                <th scope="row">{{ $solicitud->mes}} / {{ $solicitud->ano}}</th>
                                 <th scope="row">{{ $solicitud->contratados}}</th>
                                 <th scope="row">{{ $solicitud->desvinculados}}</th>
                                 <th scope="row">{{ $solicitud->otrascausas}}</th>
                                 <th scope="row">{{ $solicitud->totalvigentes}}</th>
                                 @if($solicitud->estado=="Aprobada")
-                                    <th scope="row">Asignada</th>
+                                <th scope="row">Asignada</th>
                                 @else
-                                    <th scope="row">{{ $solicitud->estado}}</th>
+                                <th scope="row">{{ $solicitud->estado}}</th>
                                 @endif
 
                                 <th scope="row">{{ $solicitud->estructura->contrato}}</th>
@@ -69,23 +69,25 @@
                                     <center><a href="{{ route('bitacora.index',$solicitud->id)}}" class="btn btn-sm btn-primary"><i class="fas fa-clipboard-list"></i></a></center>
                                 </th>
                                 <th scope="row">
-                                   
+
                                     @if($solicitud->estado=="Rechazada")
                                     <div class="col-xs-12 col-md-4">
                                         @can('solicitudesClienteEnviadas.crud')<a href="{{ route('solicitudesCliente.edit',$solicitud->id)}}" class="btn btn-sm btn-success"><i class="fas fa-user-check"></i></a>@endcan
                                     </div>
                                     @endif
-                                
-                                
-                                
+
+
+
                                 </th>
-                              
+
                             </tr>
-                        @endforeach    
+                            @endforeach
                         </tbody>
+                        <tfoot>
+                        </tfoot>
                     </table>
                     <!-- fin contenido  -->
-                    
+
                 </div>
             </div>
         </div>

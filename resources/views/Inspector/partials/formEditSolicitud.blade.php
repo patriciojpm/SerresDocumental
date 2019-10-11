@@ -1,7 +1,7 @@
 <div class="row">
     
     <div class="col-xs-12 col-md-2 mt-3">  
-        {!! Form::select('estado',['Asignada' => 'Selecione Estado','Rechazada'=>'Rechazado'],null, ['class'=>'form-control']) !!}
+        {!! Form::select('estado',['Asignada' => 'Selecione Estado','Rechazada'=>'Observar'],null, ['class'=>'form-control']) !!}
     </div>
     
     <div class="col-xs-12 col-md-2 mt-3">  

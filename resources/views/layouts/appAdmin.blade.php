@@ -98,6 +98,9 @@
                             @can('admsol.index')    
                                 <a class="dropdown-item" href="{{ route('admsolAprobadasLiberadas.index') }}">Solicitudes Aprobadas y Liberadas a Clientes</a>
                             @endcan
+                            @can('admsol.index')    
+                                <a class="dropdown-item" href="{{ route('cargaMasivaUsuario.carga') }}">Carga Masiva de Usuarios</a>
+                            @endcan
                             
                             
                         </div>

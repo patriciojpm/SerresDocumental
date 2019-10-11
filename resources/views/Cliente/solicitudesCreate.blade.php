@@ -11,9 +11,9 @@
             <div class="card">
                 <div class="card-header">Lista de Contratista para Iniciar Solicitudes
                     <span class="float-right">
-                        @can('estructuras.create')
+                        <!-- @can('estructuras.create')
                             <a href="{{ route('estructuras.create')}}" class="btn btn-sm btn-primary mr-auto ml-auto">Asignar Contratistas a Proyectos</a>
-                        @endcan  
+                        @endcan   -->
                     </span>
                 </div>
 

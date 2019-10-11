@@ -322,7 +322,9 @@
                                 <a href="{{ '/Archivos/'.$datos->ano.'/'.$documento->documento }}" target="_blank" class="form-control">{{ $documento->documento}}  Tipo: {{$documento->observaciones }} </a>
                             </div>
                             @endforeach
-                            
+                            <div class="col-xs-12 col-md-4 mt-2">
+                               <center> <a href="{{route('comprimir.descargar',$datos->id)}}" class="btn btn-success btn-block">Descargar todos los archivos en un ZIP</a></center>
+                            </div>
                             <div class="col-xs-12 col-md-12 mt-3">
                                 <center><label class="mt-3 mb-3"><strong><h3> Opciones de Procedimientos con el Formulario</h3></strong> </label></center>
                             </div>
