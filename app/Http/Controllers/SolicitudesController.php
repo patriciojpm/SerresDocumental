@@ -5,8 +5,11 @@ use App\usuconformulario;
 use App\solicitudeproceso;
 use App\solicituddocumento;
 use App\seguimiento;
+use App\empresa;
 use Illuminate\Http\Request;
 use Alert;
+use App\estructura;
+
 class SolicitudesController extends Controller
 {
     /**
@@ -28,6 +31,10 @@ class SolicitudesController extends Controller
     public $usuconform_id;
     public $numerodeformulario;
     public $resp;
+    public $estructura;
+    public $solicitudesArray = array();
+    public $f=0;
+    public $c=0;
     public function index()
     {
         
@@ -38,6 +45,8 @@ class SolicitudesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+
     public function create()
     {
         $user = auth()->User()->id;
@@ -713,9 +722,9 @@ class SolicitudesController extends Controller
     }
 
     public function CrearFormulario($id){
-         
-        
+                 
         $usuconfor=usuconformulario::where('id',$id)->get();
+        //dd($usuconfor);
         foreach($usuconfor as $form)
         if ($form->formulario==1)
             return view('Cliente.formulacioCertificacion',compact('usuconfor'));
@@ -728,15 +737,57 @@ class SolicitudesController extends Controller
 
         $user = auth()->User()->id;
 
+        $solicitudesAdmin=solicitudeproceso::where('user_id',$user)->get();
+        
+
         $this->estado="Enviada";
-        $solicitudesEnviadas=solicitudeproceso::where('user_id',$user)->where('estado',$this->estado)->orWhere('estado',$this->estadoRechazada)->orWhere('estado',$this->estadoAsignada)->orWhere('estado',$this->aprobada)->get();
+        $solicitudesEnviadas=solicitudeproceso::where('user_id',$user)->where('estado',$this->estado)->orWhere('estado',$this->estadoRechazada)->WHERE('user_id',$user)->orWhere('estado',$this->estadoAsignada)->WHERE('user_id',$user)->orWhere('estado',$this->aprobada)->WHERE('user_id',$user)->get();
         return view('Cliente.indexEnviadas',compact('solicitudesEnviadas'));
+
+
+
+    }
+
+    public function solicitudesAdminContratistas(){
+        $user = auth()->User()->id;
+
+        $solicitudesAdmin=usuconformulario::where('user_id',$user)->get();
+        
+        foreach($solicitudesAdmin as $estructura){
+            $solicitudesAdmin=solicitudeproceso::where('estructura_id',$estructura->estructura_id)->get();
+            foreach($solicitudesAdmin as $datos){
+
+                $this->solicitudesArray[$this->f][$this->c]=$datos->id;
+                $this->solicitudesArray[$this->f][$this->c+1]=$datos->mes;
+                $this->solicitudesArray[$this->f][$this->c+2]=$datos->ano;
+                $this->solicitudesArray[$this->f][$this->c+3]=$datos->contratados;
+                $this->solicitudesArray[$this->f][$this->c+4]=$datos->desvinculados;
+                $this->solicitudesArray[$this->f][$this->c+5]=$datos->otrascausas;
+                $this->solicitudesArray[$this->f][$this->c+6]=$datos->totalvigentes;
+                $this->solicitudesArray[$this->f][$this->c+7]=$datos->estado;
+                
+                $datoContrato=estructura::where('id',$estructura->estructura_id)->get();
+                    foreach($datoContrato as $datoContrato){
+                        $this->solicitudesArray[$this->f][$this->c+10]=$datoContrato->contrato;
+                        $this->solicitudesArray[$this->f][$this->c+11]=$datoContrato->formulario_id;
+                        $empresa=empresa::where('id',$datoContrato->empresa_id)->get();
+                            foreach($empresa as $datoEmpresa){
+                                $this->solicitudesArray[$this->f][$this->c+12]=$datoEmpresa->rut;
+                                $this->solicitudesArray[$this->f][$this->c+13]=$datoEmpresa->nombre;
+                            }
+                    }
+                $this->f++;
+            }
+            $solicitudesAdmin=$this->solicitudesArray;
+          
+        }
+        return view('Cliente.indexSolicitudesAdmin',compact('solicitudesAdmin'));
     }
 
     public function indexAprobGuard(){
         $user = auth()->User()->id;
         $this->estado="Liberada";
-        $solicitudesEnviadas=solicitudeproceso::where('user_id',$user)->where('estado',$this->estado)->orWhere('estado',$this->estadoGuardada)->get();
+        $solicitudesEnviadas=solicitudeproceso::where('user_id',$user)->where('estado',$this->estado)->orWhere('estado',$this->estadoGuardada)->where('user_id',$user)->get();
         return view('Cliente.indexAprobGuard',compact('solicitudesEnviadas'));
     }
 

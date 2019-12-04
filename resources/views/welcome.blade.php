@@ -72,7 +72,11 @@
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
-                        <a href="{{ url('/home') }}">Home</a>
+                        @if (auth()->User()->Tipo=="cliente");
+                            <a href="{{ route('homeCliente') }}">Sesión ya Iniciada, Regresar al Sitio</a>
+                        @else
+                        <a href="{{ route('home') }}">Sesión ya Iniciada, Regresar al Sitio</a>
+                        @endif
                     @else
                         <a href="{{ route('login') }}">Login</a>
                         <!-- <a href="{{ route('register') }}">Register</a> -->

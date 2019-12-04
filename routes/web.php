@@ -136,8 +136,10 @@ route::get('solicitudeCliente/{role}','SolicitudesController@show')->name('solic
 route::get('solicitudeCliente/{role}/edit','SolicitudesController@edit')->name('solicitudesCliente.edit')->middleware('permission:solicitudesClienteEnviadas.crud');//ruta del formulario de edición del rol
 route::get('formularioCertificacion/{id}/crear','SolicitudesController@CrearFormulario')->name('solicitudesCliente.formulario')->middleware('permission:solicitudesClienteEnviadas.crud');//ruta del formulario de edición del rol
 
-route::get('solicitudeClienteEnviadas','SolicitudesController@indexEnviadas')->name('solicitudesClienteEnviadas.index')->middleware('permission:solicitudesClienteEnviadas.crud'); // ruta para ver todos los roles
+route::get('solicitudeClienteEnviadas','SolicitudesController@indexEnviadas')->name('solicitudesClienteEnviadas.index')->middleware('permission:solicitudesCliente.index'); // ruta para ver todos los roles
 route::get('solicitudeClienteGuardadas','SolicitudesController@indexAprobGuard')->name('solicitudesClienteGuardadas.index')->middleware('permission:solicitudesClienteEnviadas.crud'); // ruta para ver todos los roles
+
+route::get('solicitudeAdminContratistas','SolicitudesController@solicitudesAdminContratistas')->name('solicitudesClienteAdmin.index')->middleware('permission:solicitudesCliente.index'); // ruta para ver todos los roles
 
 
 //fin solicitudes Cliente
@@ -155,6 +157,8 @@ route::get('solicitudesAdminAprobadas','solicitudesAdminController@Aprobar')->na
 route::put('solicitudesAdmin/{role}','solicitudesAdminController@update')->name('admsol.update')->middleware('permission:admsol.update');//ruta de actualización del registro
 route::get('solicitudesAdminAprobadasLiberadas','solicitudesAdminController@Liberadas')->name('admsolAprobadasLiberadas.index')->middleware('permission:admsol.index');//ruta del formulario de edición del rol
 
+route::get('ccolp/porfechas','solicitudesAdminController@ccolpxfechasForm')->name('ccolpxfechas.form');
+route::post('ccolp/fechasreporte','solicitudesAdminController@ccolpxfechasReporte')->name('ccolpxfechas.reporte');
 
 //fin solicitudes Cliente
 
@@ -171,4 +175,9 @@ route::get('zip/{id}','ComprimirDescargar@comprimirD')->name('comprimir.descarga
 //cargas masiva por excel
 route::get('carga/usuario','cargaMasivaController@cargamasivausuarios')->name('cargaMasivaUsuario.carga');
 Route::post('/import-excel-asigna-a-area', 'cargaMasivaController@importUser');
+
+route::get('carga/empresa','cargaMasivaController@cargamasivaempresas')->name('cargaMasivaEmpresas.carga');
+Route::post('/importEmpresas', 'cargaMasivaController@importEmpresas');
+
+
 });

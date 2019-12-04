@@ -83,7 +83,9 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xs-12 col-md-6">
+
+
+                        <div class="col-xs-12 col-md-12">
 
                                 <div class="col-xs-12 col-md-12 mt-2">
                                     <div class="card border-dark mb-3">
@@ -93,7 +95,7 @@
                                             <table class="table" id="tablaProyectos">
                                                 <thead class="thead-light">
                                                     <tr>
-                                                        
+                                                        <th scope="col">ID</th>
                                                         <th scope="col">Rut</th>
                                                         <th scope="col">Contratista</th>
                                                         <th scope="col">Contrato</th>
@@ -104,12 +106,12 @@
                                                     @foreach($contratistas as $contratista)
                                                     <tr>
                                                         <label>
-                                                        <input type="hidden" value="{{ $contratista->id}}" name="empresa_id[]" >
+                                                        <td><input type="text" size="1" value="{{ $contratista->id}}" class="form-control" readonly name="empresa_id[]" ></td>
                                                         <td>{{ $contratista->rut}}<input type="hidden" name="rut[]" value="{{ $contratista->rut}}"></td>
                                                         <td>{{ $contratista->nombre}}</td>
-                                                        <td><input type="text" size="3" name="contrato[]" class="form-control" placeholder="N°Contrato"></td>
+                                                        <td><input type="text" size="20" name="contrato[]" class="form-control" placeholder="N°Contrato"></td>
                                                         </label> 
-                                                        <td><input type="date" class="form-control" name="fechaInicio[]">
+                                                        <td><input type="date" size="2" class="form-control" name="fechaInicio[]">
                                                     </tr>
                                                     @endforeach
                                                     

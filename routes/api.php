@@ -26,3 +26,4 @@ Route::get('/Listaproyectos/{id}/empresa','EstructurasController@listaProyectosE
 Route::get('/eliminar/{id}/Proyecto/','EstructurasController@destroy');
 Route::get('/eliminar/{id}/UsuContForm/','UsucontformsController@destroy');
 Route::get('/aprobar/{id}/certificado/','solicitudesAdminController@ApruebaCertificado');
+Route::get('/prueba/lista/empresas/','EmpresasController@listaCsharp');

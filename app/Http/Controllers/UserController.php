@@ -92,7 +92,7 @@ class UserController extends Controller
             
             $clave=$request['password'];
             
-            Mail::to($request['email'])->send(new EmergencyCallReceived($clave));
+            //Mail::to($request['email'])->send(new EmergencyCallReceived($clave));
 
         $save->roles()->sync($request->get('roles'));
 

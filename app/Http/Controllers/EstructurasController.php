@@ -61,6 +61,7 @@ class EstructurasController extends Controller
     public function store(Request $request)
     {
         
+        
         $this->empresas_id = $request->input("empresa_id");
         $this->contratos = $request->input("contrato");
         $this->fechasInicio = $request->input("fechaInicio");
@@ -68,9 +69,9 @@ class EstructurasController extends Controller
         
         $this->n=count($request->input("empresa_id"));
         
-        foreach($this->empresas_id = $request->input("empresa_id") as $empresass)
-        { 
-           $this->pivote=$this->empresas_id[$this->c]."-".$this->contratos[$this->c];
+        foreach($request->input("empresa_id") as $empresas)
+        {
+            $this->pivote=$this->empresas_id[$this->c]."-".$this->contratos[$this->c];
                        
             $this->empresa=$this->empresas_id[$this->c];
             $this->contrato=$this->contratos[$this->c];

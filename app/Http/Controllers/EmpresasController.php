@@ -126,4 +126,8 @@ class EmpresasController extends Controller
      
          
     }
+
+    public function listaCsharp(){
+        return empresa::all();
+    }
 }

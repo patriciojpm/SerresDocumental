@@ -12,7 +12,7 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
     
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script> -->
     <script src="{{ asset('js/funciones.js') }}"></script>
 
     <script src="{{ asset('js/FuncionesSweetAlert.js') }}"></script>
@@ -22,7 +22,7 @@
 
     <!-- Styles-->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet"> 
-    <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet"> 
+    <!-- <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet"> -->
     
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
    
@@ -32,7 +32,7 @@
 
    <!-- para sweet alert desde el contralador -->
    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> 
-   <script src = "http://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js" defer ></script>
+<!-- <script src = "http://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js" defer ></script> -->
 
 <!-- activación de botones de las tablas -->
                     <!-- <script type="text/javascript" src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
@@ -41,9 +41,23 @@
                     <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.1.2/js/buttons.html5.min.js"></script> -->
 
 
+                   
 
-
-
+                    
+                    
+                    
+                    <link href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet">
+                    <link href="https://cdn.datatables.net/buttons/1.6.0/css/buttons.dataTables.min.css" rel="stylesheet">
+                    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js" prefer></script>
+                   
+                    <script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" defer ></script>
+                    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.0/js/dataTables.buttons.min.js" defer ></script>
+                    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js" defer ></script>
+                    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js" defer ></script>
+                    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js" defer ></script>
+                    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.0/js/buttons.html5.min.js" defer ></script>
+                    
+                    
 </head>
 <body>
     <div id="app">
@@ -101,14 +115,16 @@
                             @can('admsol.index')    
                                 <a class="dropdown-item" href="{{ route('cargaMasivaUsuario.carga') }}">Carga Masiva de Usuarios</a>
                             @endcan
-                            
+                            @can('admsol.index')    
+                                <a class="dropdown-item" href="{{ route('cargaMasivaEmpresas.carga') }}">Carga Masiva de Empresas</a>
+                            @endcan
                             
                         </div>
                     </div>
                     @endcan 
                     @can('SolicitudesFinalizadas.crud')
                     <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button class="mr-2 btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Inspector
                         </button>
                     @endcan  
@@ -120,6 +136,18 @@
                                 <a class="dropdown-item" href="{{ route('SolicitudesFinalizadas.index') }}">Solicitudes Finalizadas</a>
                             @endcan   
                             
+                        </div>
+                    </div>
+                  
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Resportes
+                        </button>
+                    
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                           
+                                <a class="dropdown-item" href="{{ route('ccolpxfechas.form') }}">Seguimientos de Solicitudes de CCOLP</a>
+                                    
                         </div>
                     </div>
                     </ul>

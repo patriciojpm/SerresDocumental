@@ -37,8 +37,8 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                <a class="navbar-brand" href="{{ route('homeCliente') }}">
+                    SerresVerificadora SpA
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -57,7 +57,7 @@
                                 </button>
                                 @endcan
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            @can('solicitudesClienteEnviadas.crud')
+                                @can('solicitudesClienteEnviadas.crud')
                                     <a class="dropdown-item" href="{{ route('solicitudesCliente.create') }}">Iniciar Solicitudes</a>
                                 @endcan 
                                 @can('solicitudesClienteEnviadas.crud')
@@ -65,6 +65,9 @@
                                 @endcan 
                                 @can('solicitudesClienteEnviadas.crud')
                                     <a class="dropdown-item" href="{{ route('solicitudesClienteGuardadas.index') }}">Solicitudes Aprobadas y Guardadas</a>
+                                @endcan 
+                                @can('solicitudesCliente.index')
+                                    <a class="dropdown-item" href="{{ route('solicitudesClienteAdmin.index') }}">Solicitudes de Contratistas</a>
                                 @endcan 
                             </div>
                         </div>

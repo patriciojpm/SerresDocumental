@@ -7,8 +7,11 @@ use App\user;
 use App\usuconformulario;
 use App\seguimiento;
 use App\solicituddocumento;
+use App\Exports\SolicitudesExport;
 use Illuminate\Http\Request;
 use Alert;
+use Maatwebsite\Excel\Facades\Excel;
+
 class solicitudesAdminController extends Controller
 {
     /**
@@ -182,5 +185,16 @@ class solicitudesAdminController extends Controller
         $solicitudesNuevas=solicitudeproceso::where('estado',$this->estado)->get();
 
         return view('Admin.solicitudesFinalizadasLiberadas',compact('solicitudesNuevas'));
+    }
+
+    public function ccolpxfechasForm(){
+        return view('Admin.ccolpxfechas');
+    }
+
+    public function ccolpxfechasReporte(request $request){
+
+       $solicitudes=solicitudeproceso::wheredate('created_at',">=",$request->fechai)->wheredate('created_at',"<=",$request->fechaf)->get();
+        return view('Admin.ccolpExcel',compact('solicitudes'));
+        //return (new SolicitudesExport($request->fechai,$request->fechaf))->download('invoices.xlsx');
     }
 }

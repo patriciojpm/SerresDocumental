@@ -64,6 +64,7 @@ class PermissionTableSeeder extends Seeder
             'slug'          =>'solicitudesClienteEnviadas.crud',
             'description'   =>'Todos los Permmisos del Cliente,(Cliente)',
         ]);
+        
        
          //permisos de Inspectores
          Permission::create([
