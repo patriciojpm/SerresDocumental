@@ -6,6 +6,8 @@ use App\solicitudeproceso;
 use App\solicituddocumento;
 use App\seguimiento;
 use App\empresa;
+use Mail;
+use App\Mail\NotificacionSolicitud;
 use Illuminate\Http\Request;
 use Alert;
 use App\estructura;
@@ -18,6 +20,7 @@ class SolicitudesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public $valor=0;
+    public $idSolicitudNueva;
     public $inspector=0;
     public $estado="Enviada";
     public $estadoRechazada="Rechazada";
@@ -393,7 +396,7 @@ class SolicitudesController extends Controller
                     
                 $user = auth()->User()->id;
                 
-               
+                $email = auth()->User()->email;
 
                 $idgb=solicitudeproceso::create([
                     'user_id'=>$user,
@@ -410,6 +413,13 @@ class SolicitudesController extends Controller
                     // 'inspector_id'=>$this->inspector,
 
                 ]);
+                //dd($idgb);
+                foreach($idgb as $idSolicitud){
+                    $this->idSolicitudNueva = $idgb->id;
+                }
+
+                    
+                Mail::to($email)->send(new NotificacionSolicitud($this->idSolicitudNueva));
 
                 if($request->noenviar==1){
                     //bitacora de Reenvío por rechazo

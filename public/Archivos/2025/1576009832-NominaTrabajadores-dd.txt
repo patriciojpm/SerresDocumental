@@ -1,0 +1,30 @@
+  Dim con As New SqlConnection("server = hp;database=students;integrated security=SSPI")
+
+        Dim insertquery As String = "insert into class (st_name,address,Roll_No,Email) values(' " & nameTextbox.Text.Trim() & " ','" & addressTextbox.Text.Trim() & " ','" & rollnoTextbox.Text.Trim() & "','" & emailTextbox.Text.Trim() & "')"
+        executeno(insertquery)
+        'MessageBox.Show("Record inserted successfully", "Welcome...", MessageBoxButtons.OK, MessageBoxIcon.Information)  
+
+
+
+        'Dim streamhuella As Byte() = Template.Bytes
+
+        'Ds = New DataSet
+        'Adapter = New SqlDataAdapter("Insert into Usuarios(Usuario,Huella,Email,Password,IdWeb,HuellaText,Rut) Values ('" & Nombre.Text & "',streamhuella ,'" & Email.Text & "','")")
+
+
+        '''Create a Connection object.
+        ''Dim Connection As New SqlConnection("Initial Catalog=Control;" & "Data Source=localhost;Integrated Security=SSPI;")
+
+        ''If Connection.State = ConnectionState.Closed Then
+
+        ''    'Lbl.Text = "Conexión Abierta"
+        '    Dim streamhuella As Byte() = Template.Bytes
+        '    Dim texto As String = Convert.ToBase64String(Template.Bytes)
+        '    Dim Cmd As New SqlCommand("INSERT INTO [dbo].[Usuarios]
+        '   (Usuario,Huella,Email,Password,HuellaText,Rut)VALUES('" + Nombre.Text + "',streamhuella,'" + Email.Text + "','" + Password.Text + "','" + texto + "','" + Rut.Text + "')")
+        '    Connection.Open()
+        '    Cmd.ExecuteNonQuery()
+        '    Connection.Close()
+        '    MessageBox.Show("Datos Guardado")
+
+        'End If

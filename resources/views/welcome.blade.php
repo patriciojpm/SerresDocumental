@@ -9,6 +9,7 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
         <!-- Styles -->
         <style>
@@ -86,7 +87,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    SerresVerificadora SPA.
+                    SerresVerificadora SpA
                 </div>
 
                 <div class="links">
@@ -97,6 +98,23 @@
                     <a href="https://forge.laravel.com">Forge</a>
                     <a href="https://github.com/laravel/laravel">GitHub</a> -->
                 </div>
+               <br>
+               <br>
+                <div class="card text-center card border-info mb-3 shadow p-3 mb-5 bg-white rounded">
+                    <div class="card-header">
+                        <strong><h3>¡¡ Atención !!</h3></strong>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">En caso de presentar problemas de inicio de sesión,</h5>
+                        <p class="card-text">favor tomar contacto con su ejecutivo asignado.</p>
+                        <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+                    </div>
+                    <div class="card-footer text-muted">
+                    Serres Verificadora SpA
+                    </div>
+                </div>
+                  
+
             </div>
         </div>
     </body>
