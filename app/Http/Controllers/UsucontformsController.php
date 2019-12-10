@@ -46,7 +46,8 @@ class UsucontformsController extends Controller
     public function store(Request $request)
     {
         
- 
+        // dd($request);
+
         $this->usuarios_id = $request->input("user_id");
         $this->estructura = $request->input("estructura_id");
         $this->contratos = $request->input("contrato");

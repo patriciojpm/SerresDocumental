@@ -46,6 +46,8 @@ class EmpresasController extends Controller
      */
     public function store(Request $request)
     {
+        
+        
         $busqueda=empresa::where('rut',$request->rut)->get();
         foreach($busqueda as $dato){
             $this->rut=$dato->rut;
@@ -99,6 +101,8 @@ class EmpresasController extends Controller
      */
     public function update(Request $request, empresa $empresa)
     {
+        
+        
         $empresa->update($request->all());
         
         Alert::success('Empresa Actualizada con Exito');

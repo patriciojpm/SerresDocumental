@@ -193,8 +193,9 @@ class solicitudesAdminController extends Controller
 
     public function ccolpxfechasReporte(request $request){
 
+        $users=user::where('Tipo',$this->tipo)->get();
        $solicitudes=solicitudeproceso::wheredate('created_at',">=",$request->fechai)->wheredate('created_at',"<=",$request->fechaf)->get();
-        return view('Admin.ccolpExcel',compact('solicitudes'));
+        return view('Admin.ccolpExcel',compact('solicitudes','users'));
         //return (new SolicitudesExport($request->fechai,$request->fechaf))->download('invoices.xlsx');
     }
 }

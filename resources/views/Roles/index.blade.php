@@ -21,7 +21,7 @@
                     @endif
 
                     <!-- Contenido -->
-                    <table class="table table-hover">
+                    <table class="table table-hover" id="example">
                         <thead>
                             <tr>
                             <th scope="col">Id</th>
@@ -42,7 +42,7 @@
                                 <td>{{ $user->Tipo }}</td> -->
                                 <td> @can('users.index')<a href="{{ route('roles.show',$user->id)}}" class="btn btn-sm btn-success"><i class="fas fa-edit"></i></a>@endcan</td>
                                 <td> @can('users.crud')<a href="{{ route('roles.edit',$user->id)}}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>@endcan</td>
-                                <td>@can('users.destroy')
+                                <!-- <td>@can('users.destroy') -->
                                 <!-- <center>
                                 <button class="btn btn-sm btn-danger" onclick="EliminarUser({{$user->id}})"><i class="far fa-trash-alt"></i></button>
                                 </center> -->
@@ -56,13 +56,19 @@
                                     
                                 
                                 {!! Form::close() !!}  -->
-                                
+<!--                                 
                                 @endcan                                
-                                </td>
+                                </td> -->
                                 <!-- <td>  </td> -->
                             </tr>
                         @endforeach    
                         </tbody>
+                        <tfoot>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tfoot>
                     </table>
                     <!-- fin contenido  -->
                     

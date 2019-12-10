@@ -22,8 +22,11 @@ class solicitudeproceso extends Model
         return $this->belongsTo(usuconformulario::class);
     }
 
+    // public function seguimiento(){
+    //     return $this->belongsTo(seguimiento::class);
+    // }
     public function seguimiento(){
-        return $this->belongsTo(seguimiento::class);
+        return $this->hasMany(seguimiento::class);
     }
 
 }

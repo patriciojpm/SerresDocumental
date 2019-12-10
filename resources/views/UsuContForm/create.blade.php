@@ -111,7 +111,7 @@
                                                             <div class="container-fluid">
                                                             <div class="row">
                                                                 <div class="col-xs-12 col-md-12">
-                                                                <input type="text" name="contrato[]" disabled value="{{ $contratista->contrato }}" size="30"  placeholder="N°Contrato">
+                                                                <input type="text" name="contrato[]" readonly value="{{ $contratista->contrato }}" size="30"  placeholder="N°Contrato">
                                                                 </div>
                                                             </div>
                                                             </div>

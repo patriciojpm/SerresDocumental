@@ -30,8 +30,13 @@
     @endforeach -->
     <!-- {!! Form::select('comuna', $comu, null,['class' => 'form-control']) !!} -->
     
-    {!! Form::select('comuna', $comu,$empresa->comuna,['placeholder' => $empresa->comuna, 'class'=>'form-control']) !!}
-
+    <!-- {!! Form::select('comuna', $comu,$empresa->comuna,['placeholder' => 'Seleccione Comuna','required','class'=>'form-control']) !!} -->
+<select name="comuna" class="form-control">
+        <option value="<?php echo $empresa->comuna ?>"> <?php echo $empresa->comuna ?> </option>
+        @foreach($comunas as $comuna)
+            <option value="{{ $comuna->comuna }} "> {{ $comuna->comuna }} </option>
+        @endforeach
+    </select>
                                       
 </div>  
 <div class="form-comtrol col-xs-12 col-md-1">

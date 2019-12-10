@@ -32,4 +32,6 @@ class User extends Authenticatable
     public function User(){
         return $this->hasMany(usuconformulario::class);
     }
+
+    
 }

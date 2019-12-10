@@ -18,7 +18,7 @@ class CreateSeguimientosTable extends Migration
             $table->timestamps();
             $table->integer('solicitudeproceso_id')->unsigned();
             $table->foreign('solicitudeproceso_id')->references('id')->on('solicitudeprocesos');
-            $table->string('comentario');
+            $table->string('comentario',5000);
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
             $table->integer('inspector_id')->unsigned();

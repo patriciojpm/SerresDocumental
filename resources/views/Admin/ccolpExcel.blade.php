@@ -23,52 +23,92 @@
                     <table class="table table-hover" id="example">
                         <thead>
                             <tr>
-                            <th scope="col">Id</th>
-                            <th scope="col">Rut Contratista  </th>
-                            <th scope="col">Contratista</th>
-                            <th scope="col">Tipo de Solcitud</th>
-                            <th scope="col">Periodo a Certificar</th>
-                            <th scope="col">Ingresos del Periodo</th>
-                            <th scope="col">Art. 161 del Periodo</th>
-                            <th scope="col">Desvinculados de Otras Causas del Periodo</th>
-                            <th scope="col">N° Total de Trabajadores Vigentes en Obra</th>
-                            <!-- <th scope="col">Bitácora</th>
-                            <th scope="col">Asignar</th> -->
+                                <th>Id</th>
+                                <th>Razón Social Mandante</th>
+                                <th>Rut Mandante</th>
+                                <th>Obra</th>
+                                <th>Razón Social Contratista</th>
+                                <th>Rut Contratista  </th>
+                                <th>Período CCOLP</th>
+                                <th>Periodo a CCOLP Mes</th>
+                                <th>N° de Trabajadores a Certificar</th>
+                                <th>N° Contrato o Servicio Prestado Informa Contratista</th>
+                                <th>Contacto Nombre</th>
+                                <th>Contacto Tel.</th>
+                                <th>Contacto Email</th>
+                                <th>Estado Certificación</th>
+                                <th>Fecha Recepción</th>
+                                <th>Fecha Emisión</th>
+                                <th>Ejecutivo Asignado</th>
+                                <th>N° Certificado</th>
+                                <th>N° Factura</th>
+                                <th>Pagado Si/No</th>
+                                <th>Días Hábiles</th>
+                                
+
+
+                           
                             </tr>
                         </thead>
                         <tbody>
                         @foreach($solicitudes as $solicitud)
                            <tr>
-                                <th scope="row">{{ $solicitud->id}}</th>
-                                <th scope="row">{{ $solicitud->estructura->empresa->rut}}</th>
-                                <th scope="row">{{ $solicitud->estructura->empresa->nombre}}</th>
+                                <th>{{ $solicitud->id}}</th>
+                                <th>{{ $solicitud->estructura->proyecto->empresa->nombre}} </th>
+                                <th>{{ $solicitud->estructura->proyecto->empresa->rut}}</th>
+                                <th>{{ $solicitud->estructura->proyecto->proyecto}}</th>
+                                <th>{{ $solicitud->estructura->empresa->nombre}}</th>
+                                <th>{{ $solicitud->estructura->empresa->rut}}</th>
+                              
+                                <th>{{ $solicitud->mes}}-{{ $solicitud->ano}}</th> 
+                                <th></th>
+                                <th>{{ $solicitud->totalvigentes}}</th>
+                                <th>{{ $solicitud->estructura->contrato}}</th>
+                                <th>{{ $solicitud->estructura->empresa->nomContacto}}</th>
+                                <th>{{ $solicitud->estructura->empresa->emailContacto}}</th>
+                                <th>{{ $solicitud->estado}}</th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
                                 <th>
-                                @if($solicitud->usuconformulario->formulario==1)
-                                    Certificación
-                                @else
-                                    No Disponible
-                                @endif
-                                </th>  
-                                <th scope="row">{{ $solicitud->mes}} / {{ $solicitud->ano}}</th> 
-                                <th scope="row">{{ $solicitud->contratados}}</th>
-                                <th scope="row">{{ $solicitud->desvinculados}}</th>
-                                <th scope="row">{{ $solicitud->otrascausas}}</th>
-                                <th scope="row">{{ $solicitud->totalvigentes}}</th>
-                                   
+                                    @foreach($users as $inspector)
+                                        @if($solicitud->inspector_id==$inspector->id)
+                                            {{ $inspector->name}}
+                                        @endif
+                                    @endforeach
+
+                                </th>
+                                <th>{{ $solicitud->certificado}}</th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
                             </tr>
                         @endforeach    
                         </tbody>
                     <tfoot>
                         <tr>
-                            <th scope="col">Id</th>
-                            <th scope="col">Rut Contratista  </th>
-                            <th scope="col">Contratista</th>
-                            <th scope="col">Tipo de Solcitud</th>
-                            <th scope="col">Periodo a Certificar</th>
-                            <th scope="col">Ingresos del Periodo</th>
-                            <th scope="col">Art. 161 del Periodo</th>
-                            <th scope="col">Desvinculados de Otras Causas del Periodo</th>
-                            <th scope="col">N° Total de Trabajadores Vigentes en Obra</th>
+                                <th>Id</th>
+                                <th>Razón Social Mandante</th>
+                                <th>Rut Mandante</th>
+                                <th>Obra</th>
+                                <th>Razón Social Contratista</th>
+                                <th>Rut Contratista  </th>
+                                <th>Período CCOLP</th>
+                                <th>Periodo a CCOLP Mes</th>
+                                <th>N° de Trabajadores a Certificar</th>
+                                <th>N° Contrato o Servicio Prestado Informa Contratista</th>
+                                <th>Contacto Nombre</th>
+                                <th>Contacto Tel.</th>
+                                <th>Contacto Email</th>
+                                <th>Estado Certificación</th>
+                                <th>Fecha Recepción</th>
+                                <th>Fecha Emisión</th>
+                                <th>Ejecutivo Asignado</th>
+                                <th>N° Certificado</th>
+                                <th>N° Factura</th>
+                                <th>Pagado Si/No</th>
+                                <th>Días Hábiles</th>
+                        
                             
                             </tr>
                         </tfoot>
