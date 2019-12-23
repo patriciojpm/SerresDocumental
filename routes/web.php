@@ -137,7 +137,7 @@ route::get('solicitudeCliente/{role}/edit','SolicitudesController@edit')->name('
 route::get('formularioCertificacion/{id}/crear','SolicitudesController@CrearFormulario')->name('solicitudesCliente.formulario')->middleware('permission:solicitudesClienteEnviadas.crud');//ruta del formulario de edición del rol
 
 route::get('solicitudeClienteEnviadas','SolicitudesController@indexEnviadas')->name('solicitudesClienteEnviadas.index')->middleware('permission:solicitudesCliente.index'); // ruta para ver todos los roles
-route::get('solicitudeClienteGuardadas','SolicitudesController@indexAprobGuard')->name('solicitudesClienteGuardadas.index')->middleware('permission:solicitudesClienteEnviadas.crud'); // ruta para ver todos los roles
+route::get('solicitudeClienteGuardadas','SolicitudesController@indexAprobGuard')->name('solicitudesClienteGuardadas.index');//->middleware('permission:solicitudesClienteEnviadas.crud'); // ruta para ver todos los roles
 
 route::get('solicitudeAdminContratistas','SolicitudesController@solicitudesAdminContratistas')->name('solicitudesClienteAdmin.index')->middleware('permission:solicitudesCliente.index'); // ruta para ver todos los roles
 
@@ -164,9 +164,9 @@ route::post('ccolp/fechasreporte','solicitudesAdminController@ccolpxfechasReport
 
 route::get('bitacora/{role}/edit','SolicitudesController@bitacora')->name('bitacora.index');//ruta del formulario de edición del rol
 
-route::get('solicitudeClienteGuardadas/{id}/enviar','SolicitudesController@solicitudGuardadaEnviar')->name('solicitudesCliente.guardada')->middleware('permission:solicitudesClienteGuardadas.index'); // ruta para ver todos los roles
+route::get('solicitudeClienteGuardadas/{id}/enviar','SolicitudesController@solicitudGuardadaEnviar')->name('solicitudesCliente.guardada');//->middleware('permission:solicitudesClienteGuardadas.index'); // ruta para ver todos los roles
 
-route::post('solicitudeCliente/storeGuardada','SolicitudesController@storeGuardada')->name('solicitudesClienteGuardada.store')->middleware('permission:solicitudesCliente.create'); // ruta para grabar
+route::post('solicitudeCliente/storeGuardada','SolicitudesController@storeGuardada')->name('solicitudesClienteGuardada.store');//->middleware('permission:solicitudesCliente.create'); // ruta para grabar
 
 
 //comprimir y Descargar

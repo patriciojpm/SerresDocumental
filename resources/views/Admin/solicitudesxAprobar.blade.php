@@ -52,7 +52,7 @@
                                     No Disponible
                                 @endif
                                 </th>  
-                                <th scope="row">{{ $solicitud->mes}} / {{ $solicitud->ano}}</th> 
+                                <th scope="row">{{ $solicitud->mes}}-{{ $solicitud->ano}}</th> 
                                 <!-- <th scope="row">{{ $solicitud->contratados}}</th>
                                 <th scope="row">{{ $solicitud->desvinculados}}</th>
                                 <th scope="row">{{ $solicitud->otrascausas}}</th>

@@ -25,18 +25,19 @@
                     @endif
 
                     <!-- Contenido -->
-                    <table class="table table-hover">
+                    <table class="table table-hover" id="example">
                         <thead>
                             <tr>
-                            <th scope="col">Id</th>
-  
-                            <th scope="col">Contratista</th>
-                            <th scope="col">Contrato</th>
-                            <th scope="col">Formulario</th>
-                            <!-- <th scope="col">Periodo Inicio</th>
-                            <th scope="col">Periodo Fin</th>
-                            <th scope="col">Autorizado Solicitud</th> -->
-                            <th scope="col">Crear Solicitud</th>
+                                <th scope="col">Id</th>
+                                <th>Razón Social Mandante</th>
+                                <th>Rut Mandante</th>
+                                <th scope="col">Contratista</th>
+                                <th scope="col">Contrato</th>
+                                <th scope="col">Formulario</th>
+                                <!-- <th scope="col">Periodo Inicio</th>
+                                <th scope="col">Periodo Fin</th>
+                                <th scope="col">Autorizado Solicitud</th> -->
+                                <th scope="col">Crear Solicitud</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -47,15 +48,17 @@
                                         
                                     <tr @if ($solicitud->activo==1) style="color:blue" @endif>
                                         <th scope="row">{{ $solicitud->id}}</th>
-                                        <td>{{ $solicitud->estructura->empresa->nombre }}</td>
-                                        <td>{{ $solicitud->estructura->contrato }}</td>
-                                        <td>
+                                        <th>{{ $solicitud->estructura->proyecto->empresa->nombre}} </th>
+                                        <th>{{ $solicitud->estructura->proyecto->empresa->rut}}</th>
+                                        <th>{{ $solicitud->estructura->empresa->nombre }}</th>
+                                        <th>{{ $solicitud->estructura->contrato }}</th>
+                                        <th>
                                         @if ($solicitud->formulario==1)
                                             Certificación
                                         @elseif($solicitud->formulario==2)
                                             Certificación de Documentos
                                         @endif
-                                        </td>
+                                        </th>
                                         <!-- <td>
                                             Día de Inicio {{ $solicitud->periodoInicio}}
                                         </td>
@@ -69,7 +72,7 @@
                                                 <label @if ($dia>=$solicitud->periodoInicio || $dia <=$solicitud->periodoFin) style="color:red" @endif>Fuera de Plazo</label>
                                             @endif
                                         </td> -->
-                                        <td> @can('solicitudesClienteEnviadas.crud')<a href="{{ route('solicitudesCliente.formulario',$solicitud->id)}}" class="btn btn-sm btn-success"><i class="fas fa-file-invoice"></i></a>@endcan</td>
+                                        <th> @can('solicitudesClienteEnviadas.crud')<a href="{{ route('solicitudesCliente.formulario',$solicitud->id)}}" class="btn btn-sm btn-success"><i class="fas fa-file-invoice"></i></a>@endcan</th>
                                         
                                     </tr>
 
@@ -77,6 +80,15 @@
                             @endif
                         @endforeach    
                         </tbody>
+                        <tfoot>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tfoot>
                     </table>
                     <!-- fin contenido  -->
                   

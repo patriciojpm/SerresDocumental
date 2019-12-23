@@ -5,8 +5,12 @@ use App\solicitudeproceso;
 use App\usuconfomulario;
 use App\user;
 use App\usuconformulario;
+use App\estructura;
 use App\seguimiento;
 use App\solicituddocumento;
+use Mail;
+use App\Mail\NotificacionSolicitudObservada;
+use App\Mail\NotificacionSolicitudLiberada;
 use App\Exports\SolicitudesExport;
 use Illuminate\Http\Request;
 use Alert;
@@ -24,13 +28,15 @@ class solicitudesAdminController extends Controller
     public $liberada="Liberada";
     public $aprobada="Aprobada";
     public $comentario;
+    public $leyenda="Solicitud Ingresada por Primera Vez";
+    public $mail;
     public function index()
     {
         
         $solicitudes=solicitudeproceso::where('inspector_id',NULL)->where('estado',$this->enviada)->get();
-       
+        $primerEnvio=seguimiento::where('comentario',$this->leyenda)->get();
         
-        return view('Admin.solicitudesNuevas',compact('solicitudes'));
+        return view('Admin.solicitudesNuevas',compact('solicitudes','primerEnvio'));
     }
 
     /**
@@ -112,6 +118,16 @@ class solicitudesAdminController extends Controller
      */
     public function update(Request $request,$id)
     {
+        //dd($id);
+
+        $solicitud = solicitudeproceso::where('id',$id)->get();
+        foreach($solicitud as $usuario_id){
+            $usuario=user::where('id',$usuario_id->user_id)->get();
+                foreach($usuario as $mail_usuario){
+                    $this->mail=$mail_usuario->email;
+                }
+        }
+       
         $user = auth()->User()->id;
          //bitacora de asignada
          if($request->estado=='Asignada'){
@@ -132,17 +148,20 @@ class solicitudesAdminController extends Controller
                 'comentario'=>$this->comentario,
                 'user_id'=>$user,
                 'inspector_id'=>$user,
-                ]);
+            ]);
+            
+
+            Mail::to($this->mail)->send(new NotificacionSolicitudObservada($id));
         }
         // fin bitacora
         
         
         //$id->update($request->all());
         $act=solicitudeproceso::where('id',$id)->update(['inspector_id'=>$request->inspector_id,'estado'=>$request->estado,'observaciones'=>$request->observaciones]);
-
+        $primerEnvio=seguimiento::where('comentario',$this->leyenda)->get();
         $solicitudes=solicitudeproceso::where('inspector_id',NULL)->where('estado','Enviada')->get();
         Alert::success('Solicitud Procesada Correctamente');
-        return view('Admin.solicitudesNuevas',compact('solicitudes'));
+        return view('Admin.solicitudesNuevas',compact('solicitudes','primerEnvio'));
         
     }
 
@@ -164,6 +183,17 @@ class solicitudesAdminController extends Controller
     }
 
     public function ApruebaCertificado($id){
+
+        // $solicitud = solicitudeproceso::where('id',$id)->get();
+        // foreach($solicitud as $usuario_id){
+        //     $usuario=user::where('id',$usuario_id->user_id)->get();
+        //         foreach($usuario as $mail_usuario){
+        //             $this->mail=$mail_usuario->email;
+        //         }
+        // }
+
+        // Mail::to($this->mail)->send(new NotificacionSolicitudLiberada($id));
+
          //bitacora de Reenvío por rechazo
         
          $this->comentario="Aprobada";
@@ -174,8 +204,14 @@ class solicitudesAdminController extends Controller
              'inspector_id'=>1,
              ]);
          // fin bitacora
+
         $act=solicitudeproceso::where('id',$id)->update(['estado'=>$this->liberada]);
+
+        
         return;
+        
+        
+
     }
 
     public function Liberadas(){
@@ -183,8 +219,8 @@ class solicitudesAdminController extends Controller
       
         $this->estado="Liberada";
         $solicitudesNuevas=solicitudeproceso::where('estado',$this->estado)->get();
-
-        return view('Admin.solicitudesFinalizadasLiberadas',compact('solicitudesNuevas'));
+        $primerEnvio=seguimiento::where('comentario',$this->leyenda)->get();
+        return view('Admin.solicitudesFinalizadasLiberadas',compact('solicitudesNuevas','primerEnvio'));
     }
 
     public function ccolpxfechasForm(){
@@ -194,8 +230,9 @@ class solicitudesAdminController extends Controller
     public function ccolpxfechasReporte(request $request){
 
         $users=user::where('Tipo',$this->tipo)->get();
-       $solicitudes=solicitudeproceso::wheredate('created_at',">=",$request->fechai)->wheredate('created_at',"<=",$request->fechaf)->get();
-        return view('Admin.ccolpExcel',compact('solicitudes','users'));
+        $primerEnvio=seguimiento::where('comentario',$this->leyenda)->get();
+        $solicitudes=solicitudeproceso::wheredate('created_at',">=",$request->fechai)->wheredate('created_at',"<=",$request->fechaf)->get();
+        return view('Admin.ccolpExcel',compact('solicitudes','users','primerEnvio'));
         //return (new SolicitudesExport($request->fechai,$request->fechaf))->download('invoices.xlsx');
     }
 }

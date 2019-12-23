@@ -55,9 +55,9 @@
     {!! Form::select('tipoEmpresa',['Empresa Principal' => 'Empresa Principal','Contratista'=>'Contratista','Mixto'=>'Mixto'],null, ['class'=>'form-control','placeholder'=>'Seleccione Tipo Empresa (*)','required']) !!}
 </div> 
 <div class="form-comtrol col-xs-12 col-md-1">
-    {{ Form::label('mutualidad','Mutualidad') }}
+    {{ Form::label('mutualidad','Mandante (Alias)') }}
 </div>
-<div class="form-comtrol col-xs-12 col-md-2">        
+<div class="form-comtrol col-xs-12 col-md-6">        
     {{ Form::text('mutualidad',null,['class'=>'form-control']) }}
 </div> 
 <!-- <div class="form-comtrol col-xs-12 col-md-1">

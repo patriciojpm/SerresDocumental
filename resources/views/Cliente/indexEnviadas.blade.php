@@ -42,7 +42,7 @@
                         </thead>
                         <tbody>
                             @foreach($solicitudesEnviadas as $solicitud)
-                            <tr>
+                            <tr  style="color:blue" >
                                 <th scope="row">{{ $solicitud->id}}</th>
                                 <th scope="row">{{ $solicitud->estructura->empresa->rut}}</th>
                                 <th scope="row">{{ $solicitud->estructura->empresa->nombre}}</th>
@@ -53,17 +53,26 @@
                                     Certificación de Documentos
                                     @endif
                                 </th>
-                                <th scope="row">{{ $solicitud->mes}} / {{ $solicitud->ano}}</th>
+                                <th scope="row">{{ $solicitud->mes}}-{{ $solicitud->ano}}</th>
                                 <th scope="row">{{ $solicitud->contratados}}</th>
                                 <th scope="row">{{ $solicitud->desvinculados}}</th>
                                 <th scope="row">{{ $solicitud->otrascausas}}</th>
                                 <th scope="row">{{ $solicitud->totalvigentes}}</th>
-                                @if($solicitud->estado=="Aprobada")
-                                <th scope="row">Asignada</th>
-                                @else
-                                <th scope="row">{{ $solicitud->estado}}</th>
-                                @endif
-
+                                <th scope="row">
+                                @if ($solicitud->estado=="Guardada")
+                                        INICIADA
+                                    
+                                    @elseif ($solicitud->estado=="Enviada")
+                                        RECIBIDO
+                                    @elseif($solicitud->estado=="Asignada")
+                                        EN REVISION
+                                    @elseif($solicitud->estado="Rechazada")
+                                        CON OBSERVACIONES
+                                    @else
+                                        {{$solicitud->estado}}
+                                
+                                    @endif
+                                </th>
                                 <th scope="row">{{ $solicitud->estructura->contrato}}</th>
                                 <th>
                                     <center><a href="{{ route('bitacora.index',$solicitud->id)}}" class="btn btn-sm btn-primary"><i class="fas fa-clipboard-list"></i></a></center>

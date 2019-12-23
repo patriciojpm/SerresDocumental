@@ -52,12 +52,19 @@
                                     Certificación de Documentación
                                 @endif
                                 </th>  
-                                <th scope="row">mes {{ $solicitud->mes}} del {{ $solicitud->ano}}</th> 
+                                <th scope="row">{{ $solicitud->mes}}-{{ $solicitud->ano}}</th> 
                                 <th scope="row">{{ $solicitud->contratados}}</th>
                                 <th scope="row">{{ $solicitud->desvinculados}}</th>
                                 <th scope="row">{{ $solicitud->otrascausas}}</th>
                                 <th scope="row">{{ $solicitud->totalvigentes}}</th>
-                                <th scope="row">{{ $solicitud->estado}}</th>
+                                <th scope="row">
+                                @if($solicitud->estado=="Liberada")
+                                        Certificado
+                                @endif
+                                @if($solicitud->estado=="Guardada")
+                                        Iniciada
+                                    @endif
+                                </th>
                                 <th scope="row">{{ $solicitud->estructura->contrato}}</th>
                                 <th>
                                     <center><a href="{{ route('bitacora.index',$solicitud->id)}}" class="btn btn-sm btn-primary"><i class="fas fa-clipboard-list"></i></a></center>

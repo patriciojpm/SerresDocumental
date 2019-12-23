@@ -6,6 +6,7 @@ use App\solicitudeproceso;
 use App\solicituddocumento;
 use App\seguimiento;
 use App\empresa;
+use App\proyecto;
 use Mail;
 use App\Mail\NotificacionSolicitud;
 use Illuminate\Http\Request;
@@ -35,6 +36,8 @@ class SolicitudesController extends Controller
     public $numerodeformulario;
     public $resp;
     public $estructura;
+    public $nomMandante;
+    public $rutMandante;
     public $solicitudesArray = array();
     public $f=0;
     public $c=0;
@@ -778,12 +781,24 @@ class SolicitudesController extends Controller
                 
                 $datoContrato=estructura::where('id',$estructura->estructura_id)->get();
                     foreach($datoContrato as $datoContrato){
+
+                       
+
                         $this->solicitudesArray[$this->f][$this->c+10]=$datoContrato->contrato;
-                        $this->solicitudesArray[$this->f][$this->c+11]=$datoContrato->formulario_id;
+                        $this->solicitudesArray[$this->f][$this->c+11]=$estructura->formulario;
                         $empresa=empresa::where('id',$datoContrato->empresa_id)->get();
                             foreach($empresa as $datoEmpresa){
                                 $this->solicitudesArray[$this->f][$this->c+12]=$datoEmpresa->rut;
                                 $this->solicitudesArray[$this->f][$this->c+13]=$datoEmpresa->nombre;
+                            }
+
+                            $proyecto=proyecto::where('id',$datoContrato->proyecto_id)->get();
+                            foreach($proyecto as $empresa){
+                                $datoempresa=empresa::where('id',$empresa->empresa_id)->get();
+                                    foreach($datoempresa as $empresa){
+                                        $this->solicitudesArray[$this->f][$this->c+14]=$empresa->rut;
+                                        $this->solicitudesArray[$this->f][$this->c+15]=$empresa->nombre;
+                                    }
                             }
                     }
                 $this->f++;

@@ -34,7 +34,7 @@
                 @csrf
                     <div class="row">
                             <div class="col-xs-12 col-md-12">
-                                <center><label><strong><h4>Solicitud para solicitar cumplimiento de obligaciones laborales y previsionales (ley de Subcontratación) ID: {{ $datos->id}}</h4></strong></label></center>
+                                <center><label><strong><h4>Solicitud para solicitar cumplimiento de obligaciones laborales y previsionales (ley de Subcontratación) </h4></strong></label></center> <!--ID: {{ $datos->id}} -->
                             </div>
                         <!-- nuevo -->
                             <div class="col-xs-12 col-md-12">
@@ -167,7 +167,7 @@
                             
                             <div class="col-xs-12 col-md-3">
                                 <label>N° total de Trabajadores vigentes en Obra(*)</label>
-                                <input type="number" min=0 name="totalvigentes"  value="0" class="form-control" required placeholder="Valor mínimo es 0">
+                                <input type="number" min=1 name="totalvigentes"   class="form-control" required >
                             </div>
                             <div class="col-xs-12 col-md-6">
                                 <label>Dirección de la Obra objeto del Certificado</label>

@@ -29,7 +29,7 @@
                     <table class="table">
                         <thead>
                             <tr>
-                            <th scope="col">ID</th>
+                            <!-- <th scope="col">ID</th> -->
                             <th scope="col">Fecha Creación</th>
                             <th scope="col">Usuario</th>
                             <th scope="col">Comentario / Acción</th>
@@ -38,7 +38,7 @@
                         <tbody>
                         @foreach($seguimiento as $bitacora)
                             <tr>
-                                <th scope="row">{{ $bitacora->id }}</th>
+                                <!-- <th scope="row">{{ $bitacora->id }}</th> -->
                                 <td>{{ $bitacora->created_at }}</td>
                                 <td>{{ $bitacora->user->name}}</td>
                                 <td>{{ $bitacora->comentario }}</td>

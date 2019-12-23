@@ -52,7 +52,7 @@
                                     No Disponible
                                 @endif
                                 </th>  
-                                <th scope="row">mes {{ $solicitud->mes}} del {{ $solicitud->ano}}</th> 
+                                <th scope="row">{{ $solicitud->mes}}-{{ $solicitud->ano}}</th> 
                                 <th scope="row">{{ $solicitud->contratados}}</th>
                                 <th scope="row">{{ $solicitud->desvinculados}}</th>
                                 <th scope="row">{{ $solicitud->otrascausas}}</th>
@@ -75,9 +75,9 @@
                                             </center>
                                         @endcan 
                                     </div>
-                                    <div class="col-xs-12 col-md-4">
+                                    <!-- <div class="col-xs-12 col-md-4">
                                         @can('admsol.edit')<a href="{{ route('admsol.edit',$solicitud->id)}}" class="btn btn-sm btn-primary"><i class="fas fa-user-check"></i></a>@endcan
-                                    </div>
+                                    </div> -->
                                 </div>
                                 </th>                 
                                 </td>

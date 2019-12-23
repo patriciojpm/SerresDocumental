@@ -21,7 +21,7 @@
                     @endif
 
                     <!-- Contenido -->
-                    <table class="table table-hover">
+                    <table class="table table-hover" id="example">
                         <thead>
                             <tr>
                             <th scope="col">Id</th>
@@ -40,13 +40,13 @@
                         @foreach($empresas as $empresa)
                             <tr>
                                 <th scope="row">{{ $empresa->id}}</th>
-                                <td>{{ $empresa->rut }}</td>
-                                <td>{{ $empresa->nombre }}</td>
-                                <td>{{ $empresa->tipoEmpresa }}</td>
-                                <td>{{ $empresa->telefonos }}</td>
+                                <th>{{ $empresa->rut }}</th>
+                                <th>{{ $empresa->nombre }}</th>
+                                <th>{{ $empresa->tipoEmpresa }}</th>
+                                <th>{{ $empresa->telefonos }}</th>
                                 
-                                <td> @can('empresas.show')<a href="{{ route('empresas.show',$empresa->id)}}" class="btn btn-sm btn-success"><i class="fas fa-eye"></i></a>@endcan</td>
-                                <td> @can('empresas.edit')<a href="{{ route('empresas.edit',$empresa->id)}}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>@endcan</td>
+                                <th> @can('empresas.show')<a href="{{ route('empresas.show',$empresa->id)}}" class="btn btn-sm btn-success"><i class="fas fa-eye"></i></a>@endcan</th>
+                                <th> @can('empresas.edit')<a href="{{ route('empresas.edit',$empresa->id)}}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>@endcan</th>
                                 <!-- <td>@can('empresas.destroy')
                                 <center>
                                 <button class="btn btn-sm btn-danger" onclick="EliminarEmpresa({{$empresa->id}})"><i class="far fa-trash-alt"></i></button>
@@ -59,6 +59,15 @@
                             </tr>
                         @endforeach    
                         </tbody>
+                        <tfoot>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tfoot>
                     </table>
                     <!-- fin contenido  -->
                     

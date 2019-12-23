@@ -233,7 +233,7 @@
                                 <label><strong><h6>6.- Archivos para Adjuntar</h6></strong></label>
                             </div>
                             <div class="col-xs-12 col-md-12">
-                                <label>Planilla Excel con Nómina de Trabajadores</label>
+                                <label>Archivo CSV Obtenido desde Previred</label>
                                 <input type="file" name="pla" witdth="2" class="form-control">
                             </div>
                             <div class="col-xs-12 col-md-12">

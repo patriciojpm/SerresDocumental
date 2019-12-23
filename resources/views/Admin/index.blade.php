@@ -21,28 +21,28 @@
                     @endif
 
                     <!-- Contenido -->
-                    <table class="table table-hover">
+                    <table class="table table-hover" id="example">
                         <thead>
                             <tr>
-                            <th scope="col">Id</th>
-                            <th scope="col">Nombre Usuario</th>
-                            <!-- <th scope="col">Correo Electrónico</th>-->
-                            <th scope="col">Tipo de Usuario</th> 
-                            <th scope="col">Ver</th>
-                            <th scope="col">Editar</th>
-                            <!-- <th scope="col"><center>Eliminar</center></th> -->
+                                <th scope="col">Id</th>
+                                <th scope="col">Nombre Usuario</th>
+                                <th scope="col">Correo Electrónico</th>
+                                <th scope="col">Tipo de Usuario</th> 
+                                <th scope="col">Ver</th>
+                                <th scope="col">Editar</th>
+                                <!-- <th scope="col"><center>Eliminar</center></th> -->
                             </tr>
                         </thead>
                         <tbody>
                         @foreach($users as $user)
                             <tr>
                                 <th scope="row">{{ $user->id}}</th>
-                                <td>{{ $user->name }}</td>
-                                <!-- <td>{{ $user->email }}</td>-->
-                                <td>{{ $user->Tipo }}</td> 
-                                <td> @can('users.index')<a href="{{ route('users.show',$user->id)}}" class="btn btn-sm btn-success"><i class="fas fa-eye"></i></a>@endcan</td>
-                                <td> @can('users.crud')<a href="{{ route('users.edit',$user->id)}}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>@endcan</td>
-                                <td>@can('users.crud')
+                                <th>{{ $user->name }}</th>
+                                <th>{{ $user->email }}</th>
+                                <th>{{ $user->Tipo }}</th> 
+                                <th> @can('users.index')<a href="{{ route('users.show',$user->id)}}" class="btn btn-sm btn-success"><i class="fas fa-eye"></i></a>@endcan</th>
+                                <th> @can('users.crud')<a href="{{ route('users.edit',$user->id)}}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>@endcan</th>
+                                <!-- <th>@can('users.crud') -->
 
                                 <!-- <center>
                              
@@ -59,12 +59,25 @@
                                 
                                 {!! Form::close() !!}  -->
                                 
-                                @endcan                                
-                                </td>
+                                <!-- @endcan                                
+                                </th> -->
                                 <!-- <td>  </td> -->
                             </tr>
                         @endforeach    
                         </tbody>
+                        <tfoot>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            
+
+                        </tr>
+
+                        </tfoot>
                     </table>
                     <!-- fin contenido  -->
                     
