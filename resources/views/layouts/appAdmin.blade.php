@@ -56,7 +56,19 @@
                     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js" defer ></script>
                     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js" defer ></script>
                     <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.0/js/buttons.html5.min.js" defer ></script>
-                    
+                    <style>
+table {
+
+  overflow-x:auto;
+}
+table th {
+  word-wrap: break-word;
+  max-width: 95px;
+}
+#grid th {
+  white-space:inherit;
+}
+</style>                  
                     
 </head>
 <body>
@@ -110,6 +122,9 @@
                                 <a class="dropdown-item" href="{{ route('admsolAprobadas.index') }}">Administrar Solicitudes Aprobadas x Inspectores</a>
                             @endcan
                             @can('admsol.index')    
+                                <a class="dropdown-item" href="{{ route('reasignasolicitud.index') }}">Reasignar Solicitudes</a>
+                            @endcan
+                            @can('admsol.index')    
                                 <a class="dropdown-item" href="{{ route('admsolAprobadasLiberadas.index') }}">Solicitudes Aprobadas y Liberadas a Clientes</a>
                             @endcan
                             @can('admsol.index')    
@@ -133,12 +148,15 @@
                                 <a class="dropdown-item" href="{{ route('SolicitudesInspector.index') }}">Solicitudes Nuevas</a>
                             @endcan 
                             @can('SolicitudesFinalizadas.crud')
+                                <a class="dropdown-item" href="{{ route('SolicitudesInspectorObsFirm.index') }}">Solicitudes Observadas y Enviadas a Firma</a>
+                            @endcan 
+                            @can('SolicitudesFinalizadas.crud')
                                 <a class="dropdown-item" href="{{ route('SolicitudesFinalizadas.index') }}">Solicitudes Finalizadas</a>
                             @endcan   
                             
                         </div>
                     </div>
-                  
+                    @can('admsol.index')    
                     <div class="dropdown">
                         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Resportes
@@ -150,6 +168,7 @@
                                     
                         </div>
                     </div>
+                    @endcan 
                     </ul>
 
                     <!-- Right Side Of Navbar -->

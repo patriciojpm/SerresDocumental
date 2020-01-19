@@ -222,25 +222,25 @@
                             </div>
                             <div class="col-xs-12 col-md-2">
                                 <label>Rut</label>
-                                <input type="text" witdth="2" class="form-control">
+                                <input type="text" value="{{ $datos->rutSub}}" readonly witdth="2" class="form-control">
                             </div>
                             
                             <div class="col-xs-12 col-md-10">
                                 <label>Razón Social / Nombre (Apellido Paterno Apellido Materno Nombre)</label>
-                                <input type="text" class="form-control">
+                                <input type="text" value="{{ $datos->nomSub}}" readonly class="form-control">
                             </div>
                             <div class="col-xs-12 col-md-6">
                                 <label>Dirección</label>
-                                <input type="text" witdth="2" class="form-control">
+                                <input type="text" value="{{ $datos->dirSub}}" readonly witdth="2" class="form-control">
                             </div>
                             
                             <div class="col-xs-12 col-md-4">
                                 <label>Comuna</label>
-                                <input type="text" class="form-control">
+                                <input type="text" value="{{ $datos->comSub}}" readonly class="form-control">
                             </div>
                             <div class="col-xs-12 col-md-2">
                                 <label>Teléfono</label>
-                                <input type="text" class="form-control">
+                                <input type="text" value="{{ $datos->telSub}}" readonly class="form-control">
                             </div>
                             <div class="col-xs-12 col-md-12 mt-2 ">
                                 <label><strong><h6>4.- Individualización de la Obra, Empresa o Faena por la cual solicita el Certificado</h6></strong></label>
@@ -276,7 +276,7 @@
                             </div>
                             <div class="col-xs-12 col-md-2">
                                 <label>Mes</label>
-                                <input type="text"  value="@if($datos->mes==1)Enero @elseif($datos->mes==2)Febrero @elseif($datos->mes==3)Marzo @elseif($datos->mes==4)Abril @elseif($datos->mes==5)Mayo @elseif($datos->mes==6)Junio @elseif($datos->mes==7)Julio @elseif($datos->mes==8)Agosto @elseif($datos->mes==9)Septiembre @elseif($datos->mes==10)Octubre @elseif($datos->mes==11)Noviembre @elseif($datos->mes==12)Diciembre @endif" class="form-control" readonly>
+                                <input type="text" name="mes" value="@if($datos->mes==1)Enero @elseif($datos->mes==2)Febrero @elseif($datos->mes==3)Marzo @elseif($datos->mes==4)Abril @elseif($datos->mes==5)Mayo @elseif($datos->mes==6)Junio @elseif($datos->mes==7)Julio @elseif($datos->mes==8)Agosto @elseif($datos->mes==9)Septiembre @elseif($datos->mes==10)Octubre @elseif($datos->mes==11)Noviembre @elseif($datos->mes==12)Diciembre @endif" class="form-control" readonly>
                                  
                                
                                
@@ -330,7 +330,7 @@
                             </div>
                             {!! Form::model($datos, ['route'=>['SolicitudesInspector.update',$datos->id], 'method'=>'PUT']) !!}
                                 @csrf
-
+                                <input type="hidden" name="estadoNuevo" value="{{ $datos->estado}}">
                                 @include('Inspector.partials.formEditSolicitud')
 
                             {!! Form::close() !!}

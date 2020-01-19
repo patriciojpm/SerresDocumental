@@ -42,7 +42,7 @@
                         </thead>
                         <tbody>
                         @foreach($solicitudes as $solicitud)
-                           <tr>
+                           <tr @if ($solicitud->estado=="Declaracion") style="color:red" @endif >
                                 <th scope="row">{{ $solicitud->id}}</th>
                                 <th scope="row">{{ $solicitud->estructura->proyecto->empresa->nombre}} </th>
                                 <th scope="row">{{ $solicitud->estructura->proyecto->empresa->rut}}</th>
@@ -50,9 +50,13 @@
                                 <th scope="row">{{ $solicitud->estructura->empresa->nombre}}</th>
                                 <th>
                                 @if($solicitud->usuconformulario->formulario==1)
-                                    Certificación
+                                    @if ($solicitud->identificacion=="Declaracion")
+                                        Solicitud de Certificación sin Movimiento
+                                    @else
+                                        Certificación
+                                    @endif
                                 @else
-                                    No Disponible
+                                        No Disponible
                                 @endif
                                 </th>  
                                 <th scope="row">{{ $solicitud->mes}}-{{ $solicitud->ano}}</th> 

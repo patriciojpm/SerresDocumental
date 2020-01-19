@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class solicitudeproceso extends Model
 {
     protected $fillable = [
-        'id','estructura_id','usuconformulario_id','mes','ano','contratados','desvinculados','otrascausas','pivote','totalvigentes','estado','user_id','observaciones','inspector_id','numerocertificado','rectCert','contdocutrab','contdocuempr','evalfina','otro','otroobser',
+        'id','estructura_id','usuconformulario_id','mes','ano','contratados','desvinculados','otrascausas','pivote','totalvigentes','estado','user_id','observaciones','inspector_id','numerocertificado','rectCert','contdocutrab','contdocuempr','evalfina','otro','otroobser','fechaEnvio','rutSub','nomSub','dirSub','comSub','telSub','identificacion',
     ];
 
     public function empresa(){
@@ -27,6 +27,10 @@ class solicitudeproceso extends Model
     // }
     public function seguimiento(){
         return $this->hasMany(seguimiento::class);
+    }
+
+    public function user(){
+        return $this->belongsTo('App\User','inspector_id','id');
     }
 
 }

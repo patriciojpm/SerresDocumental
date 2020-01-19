@@ -102,7 +102,7 @@ class EmpresasController extends Controller
     public function update(Request $request, empresa $empresa)
     {
         
-        
+
         $empresa->update($request->all());
         
         Alert::success('Empresa Actualizada con Exito');

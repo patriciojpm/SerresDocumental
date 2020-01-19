@@ -30,7 +30,16 @@ class CreateSolicitudeprocesosTable extends Migration
             $table->string('observaciones')->nullable();
             $table->string('estado');
             $table->string('pivote');
-            $table->integer('inspector_id')->nullable();
+            $table->integer('inspector_id')->nullable()->unsigned();
+
+            $table->string("rutSub",20)->nullable();
+            $table->string("nomSub",200)->nullable();
+            $table->string("dirSub",200)->nullable();
+            $table->string("comSub",200)->nullable();
+            $table->string("telSub",50)->nullable();
+            $table->string("identificacion",30)->nullable();
+            $table->dateTime("fechaAsignacion")->nullable();
+            $table->integer("djuradas")->nullable();
 
             // campos del nuevo formulario
             $table->integer('rectcert')->nullable();

@@ -29,7 +29,7 @@
     <!-- fin desde las funciones -->
 
     <!-- para sweet alert desde el contralador -->
-     
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> 
     <link href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet">
                     <link href="https://cdn.datatables.net/buttons/1.6.0/css/buttons.dataTables.min.css" rel="stylesheet">
                     <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js" prefer></script>
@@ -76,8 +76,14 @@
                                 @can('solicitudesClienteEnviadas.crud')
                                     <a class="dropdown-item" href="{{ route('solicitudesClienteGuardadas.index') }}">Solicitudes Aprobadas y Guardadas</a>
                                 @endcan 
+                                @can('solicitudesClienteEnviadas.crud')
+                                    <a class="dropdown-item" href="{{ route('solicitudesClienteDeclaradas.index') }}">Solicitudes con Declaración Jurada</a>
+                                @endcan 
                                 @can('solicitudesCliente.index')
                                     <a class="dropdown-item" href="{{ route('solicitudesClienteAdmin.index') }}">Solicitudes de Contratistas</a>
+                                @endcan 
+                                @can('solicitudesCliente.index')
+                                <a class="dropdown-item" href="{{ route('buscarSolicitudes.buscador') }}">Buscar Solicitudes por ID</a>
                                 @endcan 
                             </div>
                         </div>

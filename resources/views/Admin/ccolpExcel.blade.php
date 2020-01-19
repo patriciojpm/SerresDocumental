@@ -78,10 +78,10 @@
                                         RECIBIDO
                                     @elseif($solicitud->estado=="Asignada")
                                         EN REVISION
-                                    @elseif($solicitud->estado="Rechazada")
+                                        @elseif($solicitud->estado=="Rechazada")
                                         CON OBSERVACIONES
-                                    @else
-                                        {{$solicitud->estado}}
+                                    @elseif($solicitud->estado=="Liberada")
+                                        APROBADA
                                 
                                     @endif
                                 
@@ -89,20 +89,51 @@
                             
                                 </th>
                                 <th>
-                                <!-- @foreach($primerEnvio as $PrimerE)
-                                    @if($PrimerE->solicitudeproceso_id==$solicitud->id)
-                                   {{ date('d-m-Y', strtotime($PrimerE->created_at)) }}
-                                    @endif
-                                @endforeach -->
+                              
+                                {{$solicitud->fechaEnvio}}
 
                                 </th>
                                 <th></th>
                                 <th>
-                                    @foreach($users as $inspector)
-                                        @if($solicitud->inspector_id==$inspector->id)
-                                            {{ $inspector->name}}
-                                        @endif
-                                    @endforeach
+                               
+                                @if ($solicitud->inspector_id==1652)
+                                    V3
+                                @elseif($solicitud->inspector_id==3)
+                                    IZ
+                                    @elseif($solicitud->inspector_id==1626)
+                                    KS
+                                    @elseif($solicitud->inspector_id==1627)
+                                    JQ
+                                    @elseif($solicitud->inspector_id==1628)
+                                    LV
+                                    @elseif($solicitud->inspector_id==1629)
+                                    RM
+                                    @elseif($solicitud->inspector_id==1630)
+                                    YA
+                                    @elseif($solicitud->inspector_id==1631)
+                                    AQ
+                                    @elseif($solicitud->inspector_id==1632)
+                                    CG
+                                    @elseif($solicitud->inspector_id==1633)
+                                    MD
+                                    @elseif($solicitud->inspector_id==1634)
+                                    KM
+                                    @elseif($solicitud->inspector_id==1635)
+                                    VVL
+                                    @elseif($solicitud->inspector_id==1669)
+                                    Ricardo Jorquera
+                                    @elseif($solicitud->inspector_id==1733)
+                                    ricardo jorquera diaz
+                                    @elseif($solicitud->inspector_id==1)
+                                    AdministradorGeneral
+                                    @elseif($solicitud->inspector_id==4)
+                                    Vladimir Varas Vial
+                                    @elseif($solicitud->inspector_id==6)
+                                    Pedro Vargas
+                                @endif
+                               </th>
+
+                                   
 
                                 </th>
                                 <th>{{ $solicitud->certificado}}</th>
@@ -114,7 +145,7 @@
                         </tbody>
                     <tfoot>
                         <tr>
-                                <th>Id</th>
+                                <!-- <th>Id</th>
                                 <th>Razón Social Mandante</th>
                                 <th>Rut Mandante</th>
                                 <th>Obra</th>
@@ -134,7 +165,29 @@
                                 <th>N° Certificado</th>
                                 <th>N° Factura</th>
                                 <th>Pagado Si/No</th>
-                                <th>Días Hábiles</th>
+                                <th>Días Hábiles</th> -->
+                                
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
                         
                             
                             </tr>

@@ -28,6 +28,7 @@
 
                 <input type="hidden" name="estructura_id" value="{{ $datos->estructura->id}}">
                 <input type="hidden" name="usuConFomulario_id" value="{{ $datos->id}}">
+                <!-- <input type="hidden" name="estadoNuevo" value="{{ $datos->estado}}"> -->
 
                 <!-- @csrf -->
                     <div class="row">
@@ -111,25 +112,25 @@
                             </div>
                             <div class="col-xs-12 col-md-2">
                                 <label>Rut</label>
-                                <input type="text" witdth="2" class="form-control">
+                                <input type="text" name="rutSub" value="{{ $datos->rutSub}}" witdth="2" class="form-control">
                             </div>
                             
                             <div class="col-xs-12 col-md-10">
                                 <label>Razón Social / Nombre (Apellido Paterno Apellido Materno Nombre)</label>
-                                <input type="text" class="form-control">
+                                <input type="text" name="nomSub" value="{{ $datos->nomSub}}" class="form-control">
                             </div>
                             <div class="col-xs-12 col-md-6">
                                 <label>Dirección</label>
-                                <input type="text" witdth="2" class="form-control">
+                                <input type="text" name="dirSub" value="{{ $datos->dirSub}}" witdth="2" class="form-control">
                             </div>
                             
                             <div class="col-xs-12 col-md-4">
                                 <label>Comuna</label>
-                                <input type="text" class="form-control">
+                                <input type="text" name="comSub" value="{{ $datos->comSub}}" class="form-control">
                             </div>
                             <div class="col-xs-12 col-md-2">
                                 <label>Teléfono</label>
-                                <input type="text" class="form-control">
+                                <input type="text" name="telSub" value="{{ $datos->telSub}}" class="form-control">
                             </div>
                             <div class="col-xs-12 col-md-12 mt-2 ">
                                 <label><strong><h6>4.- Individualización de la Obra, Empresa o Faena por la cual solicita el Certificado</h6></strong></label>
@@ -215,7 +216,7 @@
                             </div>
                             {!! Form::model($datos, ['route'=>['admsol.update',$datos->id], 'method'=>'PUT']) !!}
                                 @csrf
-
+                                <input type="hidden" name="estadoNuevo" value="{{ $datos->identificacion}}">
                                 @include('Admin.partials.formEditsolicitud')
 
                             {!! Form::close() !!}

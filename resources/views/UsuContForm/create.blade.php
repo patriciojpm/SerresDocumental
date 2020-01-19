@@ -91,6 +91,7 @@
                                                         <th scope="col">Id</th>
                                                         <th scope="col">Rut</th>
                                                         <th scope="col">Contratista</th>
+                                                        <th scope="col">Proyecto</th>
                                                         <th scope="col">Contrato</th>
                                                         <th scope="col">Mandante</th>
                                                         <th scope="col">Tipo de Solicitud</th>
@@ -107,6 +108,7 @@
                                                         
                                                         <td>{{ $contratista->empresa->rut}}</td>
                                                         <td>{{ $contratista->empresa->nombre}}</td>
+                                                        <td>{{ $contratista->proyecto->proyecto}}</td>
                                                         <td>
                                                             <div class="container-fluid">
                                                             <div class="row">

@@ -131,7 +131,7 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        $act=User::where('id',$user->id)->update(['password'=>Hash::make($request['password']),'email'=>$request->email,'Tipo'=>$request->Tipo,'direccion'=>$request->direccion]);
+        $act=User::where('id',$user->id)->update(['password'=>Hash::make($request['password']),'email'=>$request->email,'Tipo'=>$request->Tipo,'direccion'=>$request->direccion,'name'=>$request->name]);
         Alert::success('Datos Actualizados Correctamente');
         return redirect()->route('users.edit', $user->id)->with('info','actualizado');
     }
@@ -158,4 +158,22 @@ class UserController extends Controller
     // public function grabarUser(request $request){
     //     dd($request);
     // }
+
+    public function passwordnueva(){
+        
+        return view('Cliente.passwordNueva');
+    }
+
+    public function nuevaPassword(request $request){
+
+        $permitted_chars = '0123456789abcdefghijklmnopqrstuvwxyz';
+        // Output: 54esmdr0qf
+         $valor = substr(str_shuffle($permitted_chars), 1, 8);
+        $act=User::where('email',$request->correoP)->update(['password'=>Hash::make($valor)]);
+        Mail::to($request->correoP)->send(new EmergencyCallReceived($valor));
+        
+        
+        Alert::success('CLAVE DE ACCESO ENVIADA CORRECTAMENTE');
+        return view('auth.login');
+    }
 }

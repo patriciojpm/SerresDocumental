@@ -137,25 +137,25 @@
                             </div>
                             <div class="col-xs-12 col-md-2">
                                 <label>Rut</label>
-                                <input type="text" witdth="2" class="form-control">
+                                <input type="text" name="rutSub" witdth="2" class="form-control">
                             </div>
                             
                             <div class="col-xs-12 col-md-10">
                                 <label>Razón Social / Nombre (Apellido Paterno Apellido Materno Nombre)</label>
-                                <input type="text" class="form-control">
+                                <input type="text" name="nomSub" class="form-control">
                             </div>
                             <div class="col-xs-12 col-md-6">
                                 <label>Dirección</label>
-                                <input type="text" witdth="2" class="form-control">
+                                <input type="text" name="dirSub" witdth="2" class="form-control">
                             </div>
                             
                             <div class="col-xs-12 col-md-4">
                                 <label>Comuna</label>
-                                <input type="text" class="form-control">
+                                <input type="text" name="comSub" class="form-control">
                             </div>
                             <div class="col-xs-12 col-md-2">
                                 <label>Teléfono</label>
-                                <input type="text" class="form-control">
+                                <input type="text" name="telSub" class="form-control">
                             </div>
                             <div class="col-xs-12 col-md-12 mt-2 ">
                                 <label><strong><h6>4.- Individualización de la Obra, Empresa o Faena por la cual solicita el Certificado</h6></strong></label>
@@ -274,12 +274,12 @@
 
 
                             <div class="col-xs-12 col-md-6 mt-3">
-                                <center><input type="submit" value="Enviar Solicitud" class="btn btn-success"></center>
+                                <center><input type="submit" value="Aceptar" class="btn btn-success"></center>
                             </div>
                             <div class="col-xs-12 col-md-6 mt-3">
                                 <center><label>
                                 <input type="checkbox" name="noenviar" value=1 class="form-control">
-                                Marcar para Guardar y no Enviar
+                                Al Marcar esta casilla usted Guarda su solicitud, quedando pendiente su envío desde el menu <strong>Solicitudes Aprobadas y guardadas</strong>
                                 </label>
                                 </center>
                             </div>

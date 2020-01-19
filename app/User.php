@@ -33,5 +33,9 @@ class User extends Authenticatable
         return $this->hasMany(usuconformulario::class);
     }
 
+    public function solicitudeproceso()
+    {
+        return $this->hasOne('App\solicitudeproceso','id','inspector_id');
+    }
     
 }

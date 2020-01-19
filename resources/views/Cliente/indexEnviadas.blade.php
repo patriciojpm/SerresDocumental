@@ -47,11 +47,15 @@
                                 <th scope="row">{{ $solicitud->estructura->empresa->rut}}</th>
                                 <th scope="row">{{ $solicitud->estructura->empresa->nombre}}</th>
                                 <th>
-                                    @if($solicitud->usuconformulario->formulario==1)
-                                    Certificación
-                                    @elseif($solicitud->usuconformulario->formulario==2)
-                                    Certificación de Documentos
+                                @if($solicitud->usuconformulario->formulario==1)
+                                    @if ($solicitud->identificacion=="Declaracion")
+                                        Solicitud de Certificación sin Movimiento
+                                    @else
+                                        Certificación
                                     @endif
+                                @else
+                                        No Disponible
+                                @endif
                                 </th>
                                 <th scope="row">{{ $solicitud->mes}}-{{ $solicitud->ano}}</th>
                                 <th scope="row">{{ $solicitud->contratados}}</th>

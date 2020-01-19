@@ -188,5 +188,22 @@ function AprobarSolicitud(id)
     setTimeout ("location.reload();", 1500); 
   })
 }
+
+function RechazarSolicitud(id)
+{
+  $.get('/api/rechazar/'+id+'/certificado/',function(retorno)
+  {
+    Swal.fire({
+      title: 'Solicitud Rechazada, Devuelta al Inspector',
+      text: 'Pueden Continuar...',
+      type: 'success',
+      confirmButtonText: 'Ok',
+      showConfirmButton: false,
+      timer: 1500,
+      
+    })
+    setTimeout ("location.reload();", 1500); 
+  })
+}
 // fin eliminar usuario administrador de contratista
 

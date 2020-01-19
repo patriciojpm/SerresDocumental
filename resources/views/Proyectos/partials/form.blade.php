@@ -11,7 +11,7 @@
                                     <h5 class="card-title">Seleccionar Mandante para Lista Proyectos</h5>
                                     <select class="form-control" required id="selectEmpresa" name="empresa_id">
                                         @foreach($empresas as $empresa)
-                                            <option value='{{$empresa->id}}'>{{ $empresa->nombre }} </option>
+                                            <option value='{{$empresa->id}}'>{{ $empresa->rut }}, {{ $empresa->nombre }} </option>
                                         @endforeach
                                     </select>
                                    

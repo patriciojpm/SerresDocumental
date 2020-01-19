@@ -37,7 +37,8 @@
                                 <!-- <th scope="col">Periodo Inicio</th>
                                 <th scope="col">Periodo Fin</th>
                                 <th scope="col">Autorizado Solicitud</th> -->
-                                <th scope="col">Crear Solicitud</th>
+                                <th scope="col">Crear Solicitud con Movimiento</th>
+                                <th scope="col">Crear Solicitud sin Movimiento</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -72,8 +73,11 @@
                                                 <label @if ($dia>=$solicitud->periodoInicio || $dia <=$solicitud->periodoFin) style="color:red" @endif>Fuera de Plazo</label>
                                             @endif
                                         </td> -->
-                                        <th> @can('solicitudesClienteEnviadas.crud')<a href="{{ route('solicitudesCliente.formulario',$solicitud->id)}}" class="btn btn-sm btn-success"><i class="fas fa-file-invoice"></i></a>@endcan</th>
-                                        
+                                        <th> <center>@can('solicitudesClienteEnviadas.crud')<a href="{{ route('solicitudesCliente.formulario',$solicitud->id)}}" class="btn btn-sm btn-success"><i class="fas fa-file-invoice"></i></a>@endcan</center></th>
+                                        <th><center> 
+                                            @if($solicitud->estructura->proyecto->empresa->djuradas==1)
+                                                @can('solicitudesClienteEnviadas.crud')<a href="{{ route('solicitudesCliente.formularioDeclaracion',$solicitud->id)}}" class="btn btn-sm btn-danger"><i class="fas fa-file-invoice"></i></a>@endcan</center></th>
+                                            @endif
                                     </tr>
 
                                 <!-- <td>  </td> -->
@@ -81,6 +85,7 @@
                         @endforeach    
                         </tbody>
                         <tfoot>
+                            <th></th>
                             <th></th>
                             <th></th>
                             <th></th>

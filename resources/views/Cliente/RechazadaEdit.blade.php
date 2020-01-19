@@ -9,7 +9,7 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">Solicitudes rechazadas
+                <div class="card-header">Solicitud Observada
                     <!-- <span class="float-right">
                         @can('estructuras.create')
                             <a href="{{ route('estructuras.create')}}" class="btn btn-sm btn-primary mr-auto ml-auto">Asignar Contratistas a Proyectos</a>
@@ -30,6 +30,7 @@
 
                 <input type="hidden" name="estructura_id" value="{{ $datos->estructura->id}}">
                 <input type="hidden" name="usuConFomulario_id" value="{{ $datos->id}}">
+                <input type="hidden" name="PrimeraVez" value="porObservacion">
                 <input type="hidden" name="actualizar" value="Actualizar">
                 <input type="hidden" name="solicitud_id" value="{{ $datos->id}}">
 
@@ -115,25 +116,25 @@
                             </div>
                             <div class="col-xs-12 col-md-2">
                                 <label>Rut</label>
-                                <input type="text" witdth="2" class="form-control">
+                                <input type="text" name="rutSub" value="{{ $datos->rutSub}}" witdth="2" class="form-control">
                             </div>
                             
                             <div class="col-xs-12 col-md-10">
                                 <label>Razón Social / Nombre (Apellido Paterno Apellido Materno Nombre)</label>
-                                <input type="text" class="form-control">
+                                <input type="text" name="nomSub" value="{{ $datos->nomSub}}" class="form-control">
                             </div>
                             <div class="col-xs-12 col-md-6">
                                 <label>Dirección</label>
-                                <input type="text" witdth="2" class="form-control">
+                                <input type="text" name="dirSub" value="{{ $datos->dirSub}}" witdth="2" class="form-control">
                             </div>
                             
                             <div class="col-xs-12 col-md-4">
                                 <label>Comuna</label>
-                                <input type="text" class="form-control">
+                                <input type="text" name="comSub" value="{{ $datos->comSub}}" class="form-control">
                             </div>
                             <div class="col-xs-12 col-md-2">
                                 <label>Teléfono</label>
-                                <input type="text" class="form-control">
+                                <input type="text" name="telSub" value="{{ $datos->telSub}}" class="form-control">
                             </div>
                             <div class="col-xs-12 col-md-12 mt-2 ">
                                 <label><strong><h6>4.- Individualización de la Obra, Empresa o Faena por la cual solicita el Certificado</h6></strong></label>
@@ -165,12 +166,26 @@
                             </div>
                             <div class="col-xs-12 col-md-2">
                                 <label>Año</label>
-                                <input type="number" name="ano" min=2015 max=2025 value="{{ $datos->ano }}" class="form-control" readonly>
+                                <input type="number" name="ano" min=2015 max=2025 value="{{ $datos->ano }}" class="form-control">
                             </div>
                             <div class="col-xs-12 col-md-2">
                                 <label>Mes</label>
-                                <input type="text"  value="@if($datos->mes==1)Enero @elseif($datos->mes==2)Febrero @elseif($datos->mes==3)Marzo @elseif($datos->mes==4)Abril @elseif($datos->mes==5)Mayo @elseif($datos->mes==6)Junio @elseif($datos->mes==7)Julio @elseif($datos->mes==8)Agosto @elseif($datos->mes==9)Septiembre @elseif($datos->mes==10)Octubre @elseif($datos->mes==11)Noviembre @elseif($datos->mes==12)Diciembre @endif" class="form-control" readonly>
-                                 
+                                <!-- <input type="text"  value="@if($datos->mes==1)Enero @elseif($datos->mes==2)Febrero @elseif($datos->mes==3)Marzo @elseif($datos->mes==4)Abril @elseif($datos->mes==5)Mayo @elseif($datos->mes==6)Junio @elseif($datos->mes==7)Julio @elseif($datos->mes==8)Agosto @elseif($datos->mes==9)Septiembre @elseif($datos->mes==10)Octubre @elseif($datos->mes==11)Noviembre @elseif($datos->mes==12)Diciembre @endif" class="form-control" readonly> -->
+                                 <select class="form-control" name="mes">
+                                    <option value="{{$datos->mes}}">@if($datos->mes==1)Enero @elseif($datos->mes==2)Febrero @elseif($datos->mes==3)Marzo @elseif($datos->mes==4)Abril @elseif($datos->mes==5)Mayo @elseif($datos->mes==6)Junio @elseif($datos->mes==7)Julio @elseif($datos->mes==8)Agosto @elseif($datos->mes==9)Septiembre @elseif($datos->mes==10)Octubre @elseif($datos->mes==11)Noviembre @elseif($datos->mes==12)Diciembre @endif</option>
+                                    <option value="1">Enero</option>
+                                    <option value="2">Febrero</option>
+                                    <option value="3">Marzo</option>
+                                    <option value="4">Abril</option>
+                                    <option value="5">Mayo</option>
+                                    <option value="6">Junio</option>
+                                    <option value="7">Julio</option>
+                                    <option value="8">Agosto</option>
+                                    <option value="9">Septiembre</option>
+                                    <option value="10">Octubre</option>
+                                    <option value="11">Noviembre</option>
+                                    <option value="12">Diciembre</option>
+                                 </select>
                                
                                 
                                

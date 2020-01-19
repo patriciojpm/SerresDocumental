@@ -58,21 +58,39 @@
                                 <th scope="row">{{ $solicitud->otrascausas}}</th>
                                 <th scope="row">{{ $solicitud->totalvigentes}}</th>
                                 <th scope="row">
+                                <?php $dato=strlen(trim($solicitud->certificado)); ?>
+
                                 @if($solicitud->estado=="Liberada")
+                                    @if ($dato>8)
                                         Certificado
+                                    @else
+                                    Solicitud sin Movimiento
+                                    @endif
                                 @endif
                                 @if($solicitud->estado=="Guardada")
-                                        Iniciada
-                                    @endif
+                                    Iniciada
+                                @endif
+                                @if($solicitud->estado=="Aprobada")
+                                   Enviada a Firma
+                                    
+                                @endif
+                                <!-- @if($solicitud->estado=="Guardada")
+                                    Iniciada
+                                @endif -->
                                 </th>
                                 <th scope="row">{{ $solicitud->estructura->contrato}}</th>
                                 <th>
                                     <center><a href="{{ route('bitacora.index',$solicitud->id)}}" class="btn btn-sm btn-primary"><i class="fas fa-clipboard-list"></i></a></center>
                                 </th>
                                 <th scope="row">
-                                    @if($solicitud->estado=="Liberada")
+                                    @if($solicitud->estado=="Liberada" && $dato>8)
                                         <a href="<?php echo 'http://www.serresverificadora.cl/administrador/generador_certificado.php?ncert='.$solicitud->certificado ?>" target="_blank">Certificado</a>
                                     @endif
+                                    @if ($solicitud->identificacion=="Declaracion")
+                                    
+                                    Solicitud sin Movimiento
+                                    @endif
+                                        
                                     @if($solicitud->estado=="Guardada")
                                         <center><a href="{{ route('solicitudesCliente.guardada',$solicitud->id)}}" class="btn btn-sm btn-success"><i class="fas fa-file-invoice"></i></a></center>
                                     @endif

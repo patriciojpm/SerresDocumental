@@ -14,7 +14,8 @@
 Route::get('/', function () {
     return view('welcome');
 });
-
+route::post('password/nueva','UserController@passwordnueva')->name('password.nueva');
+route::post('nuevaPassword','UserController@nuevaPassword')->name('nuevaPassword.nueva');
 Auth::routes();
 
 
@@ -39,7 +40,6 @@ route::put('users/{user}','UserController@update')->name('users.update')->middle
 route::get('users/{user}','UserController@show')->name('users.show')->middleware('permission:users.index');
 route::delete('users/{user}','UserController@destroy')->name('users.destroy')->middleware('permission:users.destroy');
 route::get('users/{user}/edit','UserController@edit')->name('users.edit')->middleware('permission:users.edit');//ruta del formulario de edición del rol
-
 
 //roles
 // route::post('roles/store')->name('roles.create')->middleware('permission:roles.create'); // ruta para grabar
@@ -71,6 +71,9 @@ route::put('solicitudes/{user}','SolicitudesInspectorController@update')->name('
 route::get('solicitudes/{user}','SolicitudesInspectorController@show')->name('SolicitudesInspector.show')->middleware('permission:solicitudesInpector.index');// formulario de solo muestra de información del rol
 route::delete('solicitudes/{user}','SolicitudesInspectorController@destroy')->name('solicitudesInpector.destroy')->middleware('permission:SolicitudesFinalizadas.crud');//Ruta de eliminación del rol directamente
 route::get('solicitudes/{user}/edit','SolicitudesInspectorController@edit')->name('SolicitudesInspector.edit')->middleware('permission:SolicitudesFinalizadas.crud');//ruta del formulario de edición del rol
+route::get('SolicitudesInspectorObsFirm','SolicitudesInspectorController@SolicitudesInspectorObsFirm')->name('SolicitudesInspectorObsFirm.index')->middleware('permission:SolicitudesFinalizadas.crud');
+
+
 
 //Roles Profiles
 route::post('rolesProfile/store','RolesProfilesController@store')->name('rolesprofiles.store')->middleware('permission:rolesprofiles.create'); // ruta para grabar
@@ -89,6 +92,8 @@ route::put('empresas/{empresa}','EmpresasController@update')->name('empresas.upd
 route::get('empresas/{id}','EmpresasController@show')->name('empresas.show')->middleware('permission:empresas.show');// formulario de solo muestra de información del rol
 route::delete('empresas/{empresa}','EmpresasController@destroy')->name('empresas.destroy')->middleware('permission:empresas.destroy');//Ruta de eliminación del rol directamente
 route::get('empresas/{empresa}/edit','EmpresasController@edit')->name('empresas.edit')->middleware('permission:empresas.edit');//ruta del formulario de edición del rol
+
+
 
 //Proyectos
 route::post('proyectos/store','ProyectosController@store')->name('proyectos.store')->middleware('permission:proyectos.create'); // ruta para grabar
@@ -135,13 +140,16 @@ route::get('solicitudeCliente/{role}','SolicitudesController@show')->name('solic
 //route::delete('rolesProfile/{role}','RolesProfilescontroller@destroy')->name('rolesprofiles.destroy')->middleware('permission:solicitudesClienteEnviadas.crud');//Ruta de eliminación del rol directamente
 route::get('solicitudeCliente/{role}/edit','SolicitudesController@edit')->name('solicitudesCliente.edit')->middleware('permission:solicitudesClienteEnviadas.crud');//ruta del formulario de edición del rol
 route::get('formularioCertificacion/{id}/crear','SolicitudesController@CrearFormulario')->name('solicitudesCliente.formulario')->middleware('permission:solicitudesClienteEnviadas.crud');//ruta del formulario de edición del rol
+route::get('formularioCertificacionDeclaracion/{id}/crear','SolicitudesController@CrearFormularioDeclaracion')->name('solicitudesCliente.formularioDeclaracion')->middleware('permission:solicitudesClienteEnviadas.crud');//ruta del formulario de edición del rol
 
 route::get('solicitudeClienteEnviadas','SolicitudesController@indexEnviadas')->name('solicitudesClienteEnviadas.index')->middleware('permission:solicitudesCliente.index'); // ruta para ver todos los roles
 route::get('solicitudeClienteGuardadas','SolicitudesController@indexAprobGuard')->name('solicitudesClienteGuardadas.index');//->middleware('permission:solicitudesClienteEnviadas.crud'); // ruta para ver todos los roles
+route::get('solicitudeClienteDeclaradas','SolicitudesController@indexDeclaradas')->name('solicitudesClienteDeclaradas.index');//->middleware('permission:solicitudesClienteEnviadas.crud'); // ruta para ver todos los roles
+
 
 route::get('solicitudeAdminContratistas','SolicitudesController@solicitudesAdminContratistas')->name('solicitudesClienteAdmin.index')->middleware('permission:solicitudesCliente.index'); // ruta para ver todos los roles
-
-
+route::get('buscarSolicitudes','SolicitudesController@buscarSolicitudes')->name('buscarSolicitudes.buscador')->middleware('permission:solicitudesCliente.index');
+route::post('resultadoBusqueda','SolicitudesController@ResultadoBusquedaSolicitud')->name('buscarSolicitud.buscador')->middleware('permission:solicitudesCliente.index');
 //fin solicitudes Cliente
 
 //solicitudes Administrador
@@ -154,12 +162,14 @@ route::delete('solicitudesAdmin/{role}','solicitudesAdminController@destroy')->n
 route::get('solicitudesAdmin/{role}/edit','solicitudesAdminController@edit')->name('admsol.edit')->middleware('permission:admsol.edit');//ruta del formulario de edición del rol
 
 route::get('solicitudesAdminAprobadas','solicitudesAdminController@Aprobar')->name('admsolAprobadas.index')->middleware('permission:admsol.edit');//ruta del formulario de edición del rol
-route::put('solicitudesAdmin/{role}','solicitudesAdminController@update')->name('admsol.update')->middleware('permission:admsol.update');//ruta de actualización del registro
+//route::put('solicitudesAdmin/{role}','solicitudesAdminController@update')->name('admsol.update')->middleware('permission:admsol.update');//ruta de actualización del registro
 route::get('solicitudesAdminAprobadasLiberadas','solicitudesAdminController@Liberadas')->name('admsolAprobadasLiberadas.index')->middleware('permission:admsol.index');//ruta del formulario de edición del rol
 
 route::get('ccolp/porfechas','solicitudesAdminController@ccolpxfechasForm')->name('ccolpxfechas.form');
 route::post('ccolp/fechasreporte','solicitudesAdminController@ccolpxfechasReporte')->name('ccolpxfechas.reporte');
 
+route::get('reasignasolicitud','solicitudesAdminController@reasignaSolicitud')->name('reasignasolicitud.index')->middleware('permission:admsol.index');
+route::post('reasignarSolicitud/store','solicitudesAdminController@reasignarSolicitudstore')->name('reasignarSolicitud.store')->middleware('permission:admsol.index');
 //fin solicitudes Cliente
 
 route::get('bitacora/{role}/edit','SolicitudesController@bitacora')->name('bitacora.index');//ruta del formulario de edición del rol

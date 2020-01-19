@@ -8,12 +8,12 @@
 <body>
 
     <p>Hola!  Junto con saludar te enviamos tu clave de Acceso: {{ $hola }} </p>
-    <p>para el ingreso al Portal debes acceder desde la URL: http:www.serresverificadora:81</p>
+    <p>para el ingreso al Portal debes acceder desde la URL: clientes.serreschile.cl</p>
     <ul>
         
         
     </ul>
-    <p>Soporte y  Desarrollo TypeCpde SpA</p>
+    <p>Soporte y  Desarrollo TypeCode SpA</p>
     <ul>
         
         <li>

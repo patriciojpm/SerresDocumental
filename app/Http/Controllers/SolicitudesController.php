@@ -41,6 +41,7 @@ class SolicitudesController extends Controller
     public $solicitudesArray = array();
     public $f=0;
     public $c=0;
+    public $fechaActual;
     public function index()
     {
         
@@ -71,6 +72,9 @@ class SolicitudesController extends Controller
     public function store(Request $request)
     {
       
+        $user = auth()->User()->id;
+                
+        $email = auth()->User()->email;
         
         $user = auth()->User()->id;
         $ano=$request->ano;
@@ -123,7 +127,7 @@ class SolicitudesController extends Controller
             
             if($this->tipoFormulario==1){    
 
-                    $act=solicitudeproceso::where('id',$request->solicitud_id)->update(['estado'=>$this->estado,'totalvigentes'=>$request->totalvigentes,'contratados'=>$request->contratados,'desvinculados'=>$request->desvinculados,'otrascausas'=>$request->otrascausas]);
+                    $act=solicitudeproceso::where('id',$request->solicitud_id)->update(['estado'=>$this->estado,'totalvigentes'=>$request->totalvigentes,'contratados'=>$request->contratados,'desvinculados'=>$request->desvinculados,'otrascausas'=>$request->otrascausas,'mes'=>$request->mes,'ano'=>$request->ano,'rutSub'=>$request->rutSub,'nomSub'=>$request->nomSub,'dirSub'=>$request->dirSub,'comSub'=>$request->comSub,'telSub'=>$request->telSub]);
                     if ($request->hasFile('cot')){
                         $cot=$request->file('cot');
                         $nombrecot=time().'-Cotizacion-'.$cot->getClientOriginalName();
@@ -388,41 +392,124 @@ class SolicitudesController extends Controller
 
                 $pivote=$request->usuConFomulario_id.'-'.$request->mes.'-'.$request->ano;
 
+                $this->fechaActual= date('Y-m-d H:i:s'); 
 
+                //envio por declaracion jurada
+                
+                // if($request->noenviar==2){
+                    
+                    //dd($request);
+                //    $estado='Enviada';
+                //    $identificacion='Declaracion';
+                //    $idgb=solicitudeproceso::create([
+                //        'user_id'=>$user,
+                //        'estructura_id'=>$request->estructura_id,
+                //        'usuconformulario_id'=>$request->usuConFomulario_id,
+                //        'mes'=>$request->mes,
+                //        'ano'=>$request->ano,
+                    //    'contratados'=>$request->contratados,
+                    //    'desvinculados'=>$request->desvinculados,
+                    //    'otrascausas'=>$request->otrascausas,
+                    //    'totalvigentes'=>$request->totalvigentes,
+                    //    'estado'=>$estado,
+                    //    'identificacion'=>$identificacion,
+                    //    'pivote'=>$pivote,
+                    //    'rutSub'=>$request->rutSub,
+                    //    'nomSub'=>$request->nomSub,
+                    //    'dirSub'=>$request->dirSub,
+                    //    'comSub'=>$request->comSub,
+                    //    'telSub'=>$request->telSub,
+                      //'fechaEnvio' => $this->fechaActual,
+                       // 'inspector_id'=>$this->inspector,
+   
+            //        ]);
+            //        Alert::success('Declaración Jurada Enviada');
+            //        //bitacora de Reenvío por rechazo
+            //        $this->comentario="Declaración Jurada Enviada";
+            //        seguimiento::create([
+            //            'solicitudeproceso_id'=>$idgb->id,
+            //            'comentario'=>$this->comentario,
+            //            'user_id'=>$user,
+            //            'inspector_id'=>$user,
+            //            ]);
+            //        // fin bitacora
+            //        $user = auth()->User()->id;
+        
+            //         $dia=date('j');
+            //         $formulacioContratista=usuconformulario::where('user_id',$user)->get();
+            //         return view('Cliente.solicitudesCreate',compact('formulacioContratista','dia'));
+
+            //    }
+
+                // fin declaracion jurada
+                
                 if($request->noenviar==1){
-                     
+                     //dd($request);
                     $estado='Guardada';
+                    $idgb=solicitudeproceso::create([
+                        'user_id'=>$user,
+                        'estructura_id'=>$request->estructura_id,
+                        'usuconformulario_id'=>$request->usuConFomulario_id,
+                        'mes'=>$request->mes,
+                        'ano'=>$request->ano,
+                        'contratados'=>$request->contratados,
+                        'desvinculados'=>$request->desvinculados,
+                        'otrascausas'=>$request->otrascausas,
+                        'totalvigentes'=>$request->totalvigentes,
+                        'estado'=>$estado,
+                        'pivote'=>$pivote,
+                        'rutSub'=>$request->rutSub,
+                        'nomSub'=>$request->nomSub,
+                        'dirSub'=>$request->dirSub,
+                        'comSub'=>$request->comSub,
+                        'telSub'=>$request->telSub,
+                       //'fechaEnvio' => $this->fechaActual,
+                        // 'inspector_id'=>$this->inspector,
+    
+                    ]);
                 }else{
-                     
+                    
                     $estado='Enviada';
+                    if($request->noenviar==2){
+                         $decla="Declaracion";
+                    }else{
+                        $decla="";
+                    }
+                   
+                    $idgb=solicitudeproceso::create([
+                        'user_id'=>$user,
+                        'estructura_id'=>$request->estructura_id,
+                        'usuconformulario_id'=>$request->usuConFomulario_id,
+                        'mes'=>$request->mes,
+                        'ano'=>$request->ano,
+                        'contratados'=>$request->contratados,
+                        'desvinculados'=>$request->desvinculados,
+                        'otrascausas'=>$request->otrascausas,
+                        'totalvigentes'=>$request->totalvigentes,
+                        'estado'=>$estado,
+                        'pivote'=>$pivote,
+                        'fechaEnvio' => $this->fechaActual,
+                        'rutSub'=>$request->rutSub,
+                        'nomSub'=>$request->nomSub,
+                        'dirSub'=>$request->dirSub,
+                        'comSub'=>$request->comSub,
+                        'telSub'=>$request->telSub,
+                        'identificacion'=>$decla,
+                        
+    
+                    ]);
+                    
                 }
                     
-                $user = auth()->User()->id;
-                
-                $email = auth()->User()->email;
-
-                $idgb=solicitudeproceso::create([
-                    'user_id'=>$user,
-                    'estructura_id'=>$request->estructura_id,
-                    'usuconformulario_id'=>$request->usuConFomulario_id,
-                    'mes'=>$request->mes,
-                    'ano'=>$request->ano,
-                    'contratados'=>$request->contratados,
-                    'desvinculados'=>$request->desvinculados,
-                    'otrascausas'=>$request->otrascausas,
-                    'totalvigentes'=>$request->totalvigentes,
-                    'estado'=>$estado,
-                    'pivote'=>$pivote,
-                    // 'inspector_id'=>$this->inspector,
-
-                ]);
-                //dd($idgb);
+           
                 foreach($idgb as $idSolicitud){
                     $this->idSolicitudNueva = $idgb->id;
                 }
 
-                    
-                Mail::to($email)->send(new NotificacionSolicitud($this->idSolicitudNueva));
+                  if($request->noenviar!=1)  {
+
+                      Mail::to($email)->send(new NotificacionSolicitud($this->idSolicitudNueva));
+                  }
 
                 if($request->noenviar==1){
                     //bitacora de Reenvío por rechazo
@@ -438,17 +525,20 @@ class SolicitudesController extends Controller
                }else{
                     //bitacora de Reenvío por rechazo
                    $this->comentario="Solicitud Ingresada por Primera Vez";
+                   $this->fechaActual= new \DateTime();
+                   //dd($this->fechaActual);
                    seguimiento::create([
                        'solicitudeproceso_id'=>$idgb->id,
                        'comentario'=>$this->comentario,
                        'user_id'=>$user,
                        'inspector_id'=>$user,
+                       'fechaEnvio' => $this->fechaActual,
                        ]);
+//dd($this->fechaActual);
+                       solicitudeproceso::where('id',$idgb->id)->update(['fechaEnvio'=>$this->fechaActual]);
                    // fin bitacora
                    
                }
-
-
 
 
                 $tipodocumento='Cotización';
@@ -581,6 +671,11 @@ class SolicitudesController extends Controller
                     'otroobser'=>$request->otraopcion,
                     'estado'=>$estado,
                     'pivote'=>$pivote,
+                    'rutSub'=>$request->rutSub,
+                    'nomSub'=>$request->nomSub,
+                    'dirSub'=>$request->dirSub,
+                    'comSub'=>$request->comSub,
+                    'telSub'=>$request->telSub,
                     // 'inspector_id'=>$this->inspector,
 
                 ]);
@@ -597,8 +692,9 @@ class SolicitudesController extends Controller
                    // fin bitacora
                    
                }else{
-                    //bitacora de Reenvío por rechazo
+                    //bitacora de Reenvío por primera vez
                    $this->comentario="Solicitud de Documentos Ingresada por Primera Vez";
+                   
                    seguimiento::create([
                        'solicitudeproceso_id'=>$idgb->id,
                        'comentario'=>$this->comentario,
@@ -646,13 +742,21 @@ class SolicitudesController extends Controller
           
         }
         if($resp==1){
-            Alert::success('Solicitud Guardada con Exito');
+            Alert::success('Solicitud Guardada con Exito, (No Recepcionada)');
         }
         if($resp==2){
             Alert::success('Solicitud Enviada con Exito');
         }
         if($resp==3){
             Alert::error('Solicitud ya Existe');
+            if($request->noenviar==2){
+                $user = auth()->User()->id;
+        
+                    $dia=date('j');
+                    $formulacioContratista=usuconformulario::where('user_id',$user)->get();
+                    return view('Cliente.solicitudesCreate',compact('formulacioContratista','dia'));
+            }
+
         }
         
         $user = $request->usuConFomulario_id;
@@ -746,6 +850,19 @@ class SolicitudesController extends Controller
         return view('Cliente.formulacioDocumentosCertificacion',compact('usuconfor'));
     }
 
+    public function CrearFormularioDeclaracion($id){
+                 
+        $usuconfor=usuconformulario::where('id',$id)->get();
+        //dd($usuconfor);
+        foreach($usuconfor as $form)
+        if ($form->formulario==1)
+            return view('Cliente.formulacioCertificacionDeclaracion',compact('usuconfor'));
+
+        if (($form->formulario==2))
+        return view('Cliente.formulacioDocumentosCertificacion',compact('usuconfor'));
+    }
+
+
     public function indexEnviadas(){
 
         $user = auth()->User()->id;
@@ -754,7 +871,7 @@ class SolicitudesController extends Controller
         
 
         $this->estado="Enviada";
-        $solicitudesEnviadas=solicitudeproceso::where('user_id',$user)->where('estado',$this->estado)->orWhere('estado',$this->estadoRechazada)->WHERE('user_id',$user)->orWhere('estado',$this->estadoAsignada)->WHERE('user_id',$user)->orWhere('estado',$this->aprobada)->WHERE('user_id',$user)->get();
+        $solicitudesEnviadas=solicitudeproceso::where('user_id',$user)->where('estado',$this->estado)->orWhere('estado',$this->estadoRechazada)->WHERE('user_id',$user)->orWhere('estado',$this->estadoAsignada)->WHERE('user_id',$user)->get();
         return view('Cliente.indexEnviadas',compact('solicitudesEnviadas'));
 
 
@@ -801,6 +918,9 @@ class SolicitudesController extends Controller
                                     }
                             }
                     }
+                    $this->solicitudesArray[$this->f][$this->c+16]=$datos->certificado;
+                    $this->solicitudesArray[$this->f][$this->c+17]=$datos->fechaEnvio;
+                
                 $this->f++;
             }
             $solicitudesAdmin=$this->solicitudesArray;
@@ -812,15 +932,23 @@ class SolicitudesController extends Controller
     public function indexAprobGuard(){
         $user = auth()->User()->id;
         $this->estado="Liberada";
-        $solicitudesEnviadas=solicitudeproceso::where('user_id',$user)->where('estado',$this->estado)->orWhere('estado',$this->estadoGuardada)->where('user_id',$user)->get();
+        $solicitudesEnviadas=solicitudeproceso::where('user_id',$user)->where('estado',$this->estado)->orWhere('estado',$this->estadoGuardada)->where('user_id',$user)->orWhere('estado',$this->aprobada)->where('user_id',$user)->get();
         return view('Cliente.indexAprobGuard',compact('solicitudesEnviadas'));
+    }
+
+    public function indexDeclaradas(){
+        $user = auth()->User()->id;
+        $this->identificacion="Declaracion";
+        $solicitudesEnviadas=solicitudeproceso::where('user_id',$user)->where('estado',$this->identificacion)->get();
+        return view('Cliente.indexDeclaradas',compact('solicitudesEnviadas'));
     }
 
     public function bitacora($id){
         
         $seguimiento=seguimiento::where('solicitudeproceso_id',$id)->get();
+        $solicitud=solicitudeproceso::where('id',$id)->get();
       
-        return view('Cliente.bitacora',compact('seguimiento'));
+        return view('Cliente.bitacora',compact('seguimiento','solicitud'));
     }
 
     public function solicitudGuardadaEnviar($id){
@@ -849,7 +977,7 @@ class SolicitudesController extends Controller
     public function storeGuardada(Request $request){
 
 
-        
+       
 
         $solicitud=solicitudeproceso::where('id',$request->usuConFomulario_id)->get();
         foreach($solicitud as $usuconformid){
@@ -866,8 +994,11 @@ class SolicitudesController extends Controller
 
                 $ano=$request->ano;
                 $this->estado="Enviada";
+                $this->fechaActual= new \DateTime();
+                $email = auth()->User()->email;
+                Mail::to($email)->send(new NotificacionSolicitud($request->usuConFomulario_id));
         if ($this->tipoFormulario==1){    
-                solicitudeproceso::where('id',$request->solicitud_id)->update(['estado'=>$this->estado,'totalvigentes'=>$request->totalvigentes,'contratados'=>$request->contratados,'desvinculados'=>$request->desvinculados,'otrascausas'=>$request->otrascausas]);
+                solicitudeproceso::where('id',$request->solicitud_id)->update(['estado'=>$this->estado,'totalvigentes'=>$request->totalvigentes,'contratados'=>$request->contratados,'desvinculados'=>$request->desvinculados,'otrascausas'=>$request->otrascausas,'fechaEnvio'=>$this->fechaActual]);
 
                 $observaciones="Primer Envío";
                 $estado="OK";
@@ -990,7 +1121,7 @@ class SolicitudesController extends Controller
                 $this->estado="Aprobada";
                 $solicitudesEnviadas=solicitudeproceso::where('user_id',$user)->where('estado',$this->estado)->orWhere('estado',$this->estadoGuardada)->get();
                 Alert::success('Solicitud Enviada con Exito');
-                return view('Cliente.indexAprobGuard',compact('solicitudesEnviadas'));
+                return view('Cliente.home',compact('solicitudesEnviadas'));
         
         }elseif($this->tipoFormulario==2){
             solicitudeproceso::where('id',$request->solicitud_id)->update(['estado'=>$this->estado,'totalvigentes'=>$request->totalvigentes,'rectCert'=>$request->rectCert,'contdocutrab'=>$request->contdocutrab,'contdocuempr'=>$request->contdocuempr,'evalfina'=>$request->evalfina,'otro'=>$request->otro,'otroobser'=>$request->otraopcion]);
@@ -1048,6 +1179,23 @@ class SolicitudesController extends Controller
              Alert::success('Solicitud Enviada con Exito');
              return view('Cliente.indexAprobGuard',compact('solicitudesEnviadas'));
 
+        }
+    }
+
+    public function buscarSolicitudes(){
+        return view('Cliente.bucarsolicitudes');
+    }
+
+    public function ResultadoBusquedaSolicitud(Request $request){
+        $solicitudesEnviadas=solicitudeproceso::where('id',$request->solicitud_id)->get();
+        foreach($solicitudesEnviadas as $solicitudes){
+            $this->resp=$solicitudes->id;
+        }
+        if (empty($this->resp)){
+            Alert::error('N° de Solicitud no Existe');
+            return view('Cliente.bucarsolicitudes');
+        }else{
+            return view('Cliente.ResultadoSolicitud',compact('solicitudesEnviadas'));
         }
     }
 }

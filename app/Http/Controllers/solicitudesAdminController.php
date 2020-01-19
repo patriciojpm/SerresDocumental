@@ -27,13 +27,16 @@ class solicitudesAdminController extends Controller
     public $enviada="Enviada";
     public $liberada="Liberada";
     public $aprobada="Aprobada";
+    public $asignada="Asignada";
+    public $declaracion="Declaracion";
     public $comentario;
+    public $cero=0;
     public $leyenda="Solicitud Ingresada por Primera Vez";
     public $mail;
     public function index()
     {
         
-        $solicitudes=solicitudeproceso::where('inspector_id',NULL)->where('estado',$this->enviada)->get();
+        $solicitudes=solicitudeproceso::where('inspector_id',NULL)->where('estado',$this->enviada)->orWhere('estado',$this->declaracion)->where('inspector_id',NULL)->get();
         $primerEnvio=seguimiento::where('comentario',$this->leyenda)->get();
         
         return view('Admin.solicitudesNuevas',compact('solicitudes','primerEnvio'));
@@ -118,8 +121,6 @@ class solicitudesAdminController extends Controller
      */
     public function update(Request $request,$id)
     {
-        //dd($id);
-
         $solicitud = solicitudeproceso::where('id',$id)->get();
         foreach($solicitud as $usuario_id){
             $usuario=user::where('id',$usuario_id->user_id)->get();
@@ -127,19 +128,40 @@ class solicitudesAdminController extends Controller
                     $this->mail=$mail_usuario->email;
                 }
         }
-       
+        //dd($request);
         $user = auth()->User()->id;
          //bitacora de asignada
+
+
+
          if($request->estado=='Asignada'){
-             $this->comentario="Solicitud Asignada"."- Observación: ".$request->observaciones;
-             seguimiento::create([
-                 'solicitudeproceso_id'=>$id,
-                 'comentario'=>$this->comentario,
-                 'user_id'=>$user,
-                 'inspector_id'=>$user,
+             if ($request->observaciones!="")
+                $this->comentario="Solicitud Asignada"."- Observación: ".$request->observaciones;
+            else
+                $this->comentario="Solicitud Asignada".$request->observaciones;
+                seguimiento::create([
+                    'solicitudeproceso_id'=>$id,
+                    'comentario'=>$this->comentario,
+                    'user_id'=>$user,
+                    'inspector_id'=>$user,
                  ]);
+                 $act=solicitudeproceso::where('id',$id)->update(['inspector_id'=>$request->inspector_id,'estado'=>$request->estado,'observaciones'=>$request->observaciones]);
          }
          // fin bitacora
+         //bitacora de asignada
+        //  if($request->estadoNuevo=='Declaracion'){
+        //     if ($request->observaciones!="")
+        //        $this->comentario="Solicitud de Declaración Jurada Asignada"."- Observación: ".$request->observaciones;
+        //    else
+        //        $this->comentario="Solicitud de Declaración Jurada Asignada".$request->observaciones;
+        //     seguimiento::create([
+        //         'solicitudeproceso_id'=>$id,
+        //         'comentario'=>$this->comentario,
+        //         'user_id'=>$user,
+        //         'inspector_id'=>$user,
+        //         ]);
+        // }
+        // fin bitacora
           //bitacora de asignada
           if($request->estado=='Rechazada'){
             $this->comentario="Solicitud Observada"."- Observación: ".$request->observaciones;
@@ -150,14 +172,20 @@ class solicitudesAdminController extends Controller
                 'inspector_id'=>$user,
             ]);
             
-
-            Mail::to($this->mail)->send(new NotificacionSolicitudObservada($id));
+            $act=solicitudeproceso::where('id',$id)->update(['inspector_id'=>$request->inspector_id,'estado'=>$request->estado,'observaciones'=>$request->observaciones]);
+                Mail::to($this->mail)->send(new NotificacionSolicitudObservada($id));
+         
         }
         // fin bitacora
         
         
         //$id->update($request->all());
-        $act=solicitudeproceso::where('id',$id)->update(['inspector_id'=>$request->inspector_id,'estado'=>$request->estado,'observaciones'=>$request->observaciones]);
+        // if($request->estado!='Declaracion'){
+        //     $act=solicitudeproceso::where('id',$id)->update(['inspector_id'=>$request->inspector_id,'estado'=>$request->estado,'observaciones'=>$request->observaciones]);
+        // }else{
+        //     $act=solicitudeproceso::where('id',$id)->update(['inspector_id'=>$request->inspector_id]); //'estado'=>$request->estado,'observaciones'=>$request->observaciones
+        // }
+
         $primerEnvio=seguimiento::where('comentario',$this->leyenda)->get();
         $solicitudes=solicitudeproceso::where('inspector_id',NULL)->where('estado','Enviada')->get();
         Alert::success('Solicitud Procesada Correctamente');
@@ -230,9 +258,64 @@ class solicitudesAdminController extends Controller
     public function ccolpxfechasReporte(request $request){
 
         $users=user::where('Tipo',$this->tipo)->get();
-        $primerEnvio=seguimiento::where('comentario',$this->leyenda)->get();
-        $solicitudes=solicitudeproceso::wheredate('created_at',">=",$request->fechai)->wheredate('created_at',"<=",$request->fechaf)->get();
-        return view('Admin.ccolpExcel',compact('solicitudes','users','primerEnvio'));
+        //$primerEnvio=seguimiento::where('comentario',$this->leyenda)->get();
+        $solicitudes=solicitudeproceso::wheredate('fechaEnvio',">=",$request->fechai)->wheredate('fechaEnvio',"<=",$request->fechaf)->get();
+        return view('Admin.ccolpExcel',compact('solicitudes')); //,'primerEnvio'
         //return (new SolicitudesExport($request->fechai,$request->fechaf))->download('invoices.xlsx');
+    }
+
+    public function reasignaSolicitud(){
+        $inspectores=user::where('Tipo',$this->tipo)->get();
+        return view('Admin.reasignarSolicitudes',compact('inspectores'));
+    }
+
+    public function reasignarSolicitudstore(Request $request){
+        $buscar=solicitudeproceso::where('id',$request->solicitud_id)->get();
+        foreach($buscar as $solicitud){
+             $this->comentario=$solicitud->id;
+        }
+           
+        
+
+        if(empty($this->comentario)){
+            Alert::error('Número de Solicitud no Existe');
+        }else{
+            $act=solicitudeproceso::where('id',$request->solicitud_id)->update(['inspector_id'=>$request->inspector_id]);
+            $this->comentario="Solicitud Reasignada al Nuevo Inspector";
+            seguimiento::create([
+                'solicitudeproceso_id'=>$request->solicitud_id,
+                'comentario'=>$this->comentario,
+                'user_id'=>1,
+                'inspector_id'=>$request->inspector_id,
+            ]);
+
+            Alert::success('Solicitud Reasignada con Exito');
+        }
+        
+        $inspectores=user::where('Tipo',$this->tipo)->get();
+        return view('Admin.reasignarSolicitudes',compact('inspectores'));
+    }
+
+    public function RechazaCertificado($id){
+
+       
+         //bitacora de Reenvío por rechazo
+        
+         $this->comentario="En Revisión";
+         seguimiento::create([
+             'solicitudeproceso_id'=>$id,
+             'comentario'=>$this->comentario,
+             'user_id'=>1,
+             'inspector_id'=>1,
+             ]);
+         // fin bitacora
+
+        $act=solicitudeproceso::where('id',$id)->update(['estado'=>$this->asignada,'certificado'=>$this->cero]);
+
+        
+        return;
+        
+        
+
     }
 }

@@ -21,7 +21,7 @@
                     @endif
 
                     <!-- Contenido -->
-                    <table class="table table-hover">
+                    <table class="table table-hover" id="example">
                         <thead>
                             <tr>
                             <th scope="col">Id</th>
@@ -29,6 +29,7 @@
                             <th scope="col">Nombre</th>
                             <!-- <th scope="col">Fecha Inicio</th> -->
                             <th scope="col">Dirección </th>
+                            <th scope="col">Rut Mandante </th>
                             <th scope="col">Empresa Principal </th>
                             <!-- <th scope="col">Correo Electrónico</th>
                             <th scope="col">Tipo de Usuario</th> -->
@@ -41,24 +42,35 @@
                         @foreach($proyectos as $proyecto)
                             <tr>
                                 <th scope="row">{{ $proyecto->id}}</th>
-                                <td>{{ $proyecto->proyecto }}</td>
+                                <th>{{ $proyecto->proyecto }}</th>
                                 <!-- <td>{{ $proyecto->fechaInicio }}</td> -->
-                                <td>{{ $proyecto->direccion }}</td>
-                                <td>{{ $proyecto->empresa->nombre }}</td>
-                                <td> @can('estructuras.show')<a href="{{ route('estructuras.show',$proyecto->id)}}" class="btn btn-sm btn-success"><i class="fas fa-eye"></i></a>@endcan</td>
-                                <td> @can('estructuras.edit')<a href="{{ route('estructuras.edit',$proyecto->id)}}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>@endcan</td>
-                                <td>@can('proyectos.destroy')
+                                <th>{{ $proyecto->direccion }}</th>
+                                <th>{{ $proyecto->empresa->rut }}</th>
+                                <th>{{ $proyecto->empresa->nombre }}</th>
+                                <th> @can('estructuras.show')<a href="{{ route('estructuras.show',$proyecto->id)}}" class="btn btn-sm btn-success"><i class="fas fa-eye"></i></a>@endcan</th>
+                                <th> @can('estructuras.edit')<a href="{{ route('estructuras.edit',$proyecto->id)}}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>@endcan</th>
+                                <th>@can('proyectos.destroy')
                                 <center>
                                 <button class="btn btn-sm btn-danger" onclick="EliminarProyecto({{$proyecto->id}})"><i class="far fa-trash-alt"></i></button>
                                 </center>
                                
                                 
                                 @endcan                                
-                                </td>
+                                </th>
                                 <!-- <td>  </td> -->
                             </tr>
                         @endforeach    
                         </tbody>
+                        <tfoot>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tfoot>
                     </table>
                     <!-- fin contenido  -->
                     

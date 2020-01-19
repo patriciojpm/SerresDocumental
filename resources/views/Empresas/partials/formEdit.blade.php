@@ -70,6 +70,13 @@
 <div class="form-comtrol col-xs-12 col-md-6">        
     {{ Form::text('mutualidad',null,['class'=>'form-control']) }}
 </div> 
+<div class="form-comtrol col-xs-12 col-md-1">
+    {{ Form::label('djuradas','Permite Declaraciones Juradas') }}
+</div>
+<div class="form-comtrol col-xs-12 col-md-4">        
+{!! Form::select('djuradas',[1 => 'Permitir sin Movimiento',0=>'No Permitir sin Movimiento'],null, ['class'=>'form-control','placeholder'=>'Seleccione Permiso sobre Declaraciones Juradas']) !!}
+
+</div>
 <!-- <div class="form-comtrol col-xs-12 col-md-1">
     {{ Form::label('especialidad','Especialidad') }}
 </div>

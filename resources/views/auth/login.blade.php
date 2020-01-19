@@ -38,7 +38,7 @@
                                 @endif
                             </div>
                         </div>
-<!-- 
+                        <!-- 
                         <div class="form-group row">
                             <div class="col-md-6 offset-md-4">
                                 <div class="form-check">
@@ -57,14 +57,15 @@
                                     {{ __('Login') }}
                                 </button>
 
-                                <!-- @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
-                                    </a>
-                                @endif -->
                             </div>
                         </div>
-                    </form>
+                       <center>
+                        </form>
+                                <form action="{{ route('password.nueva') }}" method="POST">
+                                    @csrf
+                                    <input type="submit" value="¿ Perdió su Password ?, Click Aquí para una Nueva." class="btn btn-success mt-3">
+                        </form>
+                    </center>
                 </div>
             </div>
         </div>

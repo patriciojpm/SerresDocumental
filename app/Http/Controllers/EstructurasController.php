@@ -47,8 +47,8 @@ class EstructurasController extends Controller
      */
     public function create()
     {
-        $empresas = empresa::where('tipoEmpresa',$this->ep)->orWhere('tipoEmpresa',$this->m)->get();
-        $contratistas = empresa::where('tipoEmpresa',$this->con)->get();
+        $empresas = empresa::where('tipoEmpresa',$this->ep)->orWhere('tipoEmpresa',$this->m)->orderBy('nombre', 'ASC')->get();
+        $contratistas = empresa::where('tipoEmpresa',$this->con)->orWhere('tipoEmpresa',$this->m)->get();
         return view('Estructuras.create', compact('empresas','contratistas'));
     }
 
