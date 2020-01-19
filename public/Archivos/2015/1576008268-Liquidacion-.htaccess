@@ -1,3 +1,0 @@
-RewriteEngine On
-RewriteCond %{HTTP_HOST} ^sistema.powerfitnesschile.cl$
-RewriteRule (.*)$ sistema.powerfitnesschile.cl/public/$1 [R=301,L]
